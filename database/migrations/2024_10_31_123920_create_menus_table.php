@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->integer('order');
             $table->string('url')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
