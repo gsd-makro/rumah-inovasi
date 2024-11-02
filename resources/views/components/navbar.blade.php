@@ -1,3 +1,3 @@
 <div>
-    @dd($menus)
+
 </div>

@@ -11,8 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->statefulApi();
-        $middleware->validateCsrfTokens(except: ['dashboard/menus/*']);
+        //
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

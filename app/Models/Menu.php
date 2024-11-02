@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-    protected $guarded = [];
+	protected $guarded = [];
 
-    public function children()
-    {
-        return $this->hasMany(Menu::class, 'parent_id')->with('children');
-    }
+	public function children()
+	{
+		return $this->hasMany(Menu::class, 'parent_id')->with('children');
+	}
 }

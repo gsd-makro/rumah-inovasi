@@ -10,28 +10,28 @@ use Illuminate\View\Component;
 
 class Navbar extends Component
 {
-    /**
-     * Create a new component instance.
-     */
+	/**
+	 * Create a new component instance.
+	 */
 
-    public $menus;
+	public $menus;
 
-    public function __construct()
-    {
-        $this->menus = Cache::remember('menus', 60, function () {
-            return Menu::where('parent_id', null)
-                ->where('is_active', true)
-                ->with('children')
-                ->orderBy('order')
-                ->get();
-        });
-    }
+	public function __construct()
+	{
+		$this->menus = Cache::remember('menus', 60, function () {
+			return Menu::where('parent_id', null)
+				->where('is_active', true)
+				->with('children')
+				->orderBy('order')
+				->get();
+		});
+	}
 
-    /**
-     * Get the view / contents that represent the component.
-     */
-    public function render(): View|Closure|string
-    {
-        return view('components.navbar');
-    }
+	/**
+	 * Get the view / contents that represent the component.
+	 */
+	public function render(): View|Closure|string
+	{
+		return view('components.navbar');
+	}
 }
