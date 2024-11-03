@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
@@ -40,5 +41,15 @@ Route::prefix('dashboard')->group(function () {
     'edit' => 'subjects.edit',
     'update' => 'subjects.update',
     'destroy' => 'subjects.destroy',
+  ]);
+
+  Route::resource('indicators', IndicatorController::class)->names([
+    'index' => 'indicators.index',
+    'create' => 'indicators.create',
+    'store' => 'indicators.store',
+    'show' => 'indicators.show',
+    'edit' => 'indicators.edit',
+    'update' => 'indicators.update',
+    'destroy' => 'indicators.destroy',
   ]);
 });
