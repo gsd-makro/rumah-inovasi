@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,15 @@ Route::prefix('dashboard')->group(function () {
     'edit' => 'users.edit',
     'update' => 'users.update',
     'destroy' => 'users.destroy',
+  ]);
+
+  Route::resource('subjects', SubjectController::class)->names([
+    'index' => 'subjects.index',
+    'create' => 'subjects.create',
+    'store' => 'subjects.store',
+    'show' => 'subjects.show',
+    'edit' => 'subjects.edit',
+    'update' => 'subjects.update',
+    'destroy' => 'subjects.destroy',
   ]);
 });
