@@ -16,6 +16,7 @@
           </button>
           @include('dashboard.subjects._add')
           @include('dashboard.subjects._edit')
+          @include('dashboard.subjects._delete')
         </div>
       </div>
       <div class="card-body">
@@ -37,19 +38,22 @@
                 data-bs-target="#update" onclick="openEditModal({{$subject}})">
                   Edit
                 </button>
-                <button class="btn btn-danger">Hapus</button>
+                <button class="btn btn-danger" type="button" data-bs-toggle="modal"
+                data-bs-target="#delete" onclick="openDeleteModal({{$subject}})">Hapus</button>
               </td>
           </tr>
         @endforeach
       </tbody>
     </table>  
+    
+    
     </div>
     </div>
   </section>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
   new DataTable('#table1');
 </script>
-@endsection
+@endpush
