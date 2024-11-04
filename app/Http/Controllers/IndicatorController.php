@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Indicator;
+use App\Models\Subject;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,15 @@ class IndicatorController extends Controller
      */
     public function index()
     {
-        $indicators = Indicator::all();
-        return view('dashboard.indicators.index', ['indicators' => $indicators]);
+        $indicators = Indicator::with('subject')->orderBy('updated_at', 'desc')->get();
+        $subjects = Subject::all();
+        return view(
+            'dashboard.indicators.index',
+            [
+                'indicators' => $indicators,
+                'subjects' => $subjects
+            ]
+        );
     }
 
     /**
