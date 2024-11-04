@@ -1,25 +1,24 @@
-<li class="{{ $menu->children->isNotEmpty() ? 'dropdown-submenu' : '' }}">
-    <a class="dropdown-item {{ $menu->children->isNotEmpty() ? 'dropdown-toggle' : '' }}" href="{{ $menu->url }}"
-        {{ $menu->children->isNotEmpty() ? 'role=button data-bs-toggle=dropdown' : '' }}>
-        {{ $menu->title }}
-    </a>
-    @if ($menu->children->isNotEmpty())
-        <ul class="dropdown-menu">
-            @foreach ($menu->children as $child)
-                @include('partials.submenu', ['menu' => $child])
-            @endforeach
-        </ul>
-    @endif
+<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-{{ $menu->id }}"
+  @class([
+      'menu-item',
+      'menu-item-type-custom',
+      'menu-item-object-custom',
+      'menu-item-has-children',
+      'menu-item-{{ $menu->id }}',
+      'nav-item',
+      'dropdown mega-dropdown' => $menu->children->isNotEmpty(),
+  ])>
+  <a title="Features" href="{{ $menu->url }}" @class([
+      'nav-link',
+      'dropdown-toggle' => $menu->children->isNotEmpty(),
+  ])
+    @if ($menu->children->isNotEmpty()) id="menu-item-dropdown-{{ $menu->id }}" @endif>
+    {{ $menu->title }}
+  </a>
+
+  @if ($menu->children->isNotEmpty())
+    <ul class="dropdown-menu" aria-labelledby="menu-item-dropdown-{{ $menu->id }}" role="menu">
+      @each('partials.submenu', $menu->children, 'menu')
+    </ul>
+  @endif
 </li>
-
-<style>
-    .dropdown-submenu {
-        position: relative;
-    }
-
-    .dropdown-submenu .dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-top: -1px;
-    }
-</style>
