@@ -1,87 +1,30 @@
-<nav class="navbar fixed-top navbar-expand-lg bg-primary" data-bs-theme="dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">Rumah Inovasi</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                @foreach ($menus as $menu)
-                    <li class="nav-item {{ $menu->children->isNotEmpty() ? 'dropdown' : '' }}">
-                        <a class="nav-link {{ $menu->children->isNotEmpty() ? 'dropdown-toggle' : '' }}"
-                            href="{{ $menu->url }}"
-                            {{ $menu->children->isNotEmpty() ? 'role=button data-bs-toggle=dropdown' : '' }}>
-                            {{ $menu->title }}
-                        </a>
-                        @if ($menu->children->isNotEmpty())
-                            <ul class="dropdown-menu">
-                                @foreach ($menu->children as $child)
-                                    @include('partials.submenu', ['menu' => $child])
-                                @endforeach
-                            </ul>
-                        @endif
-                    </li>
-                @endforeach
-            </ul>
+<ul id="start-main" class="navbar-nav main-nav navbar-uppercase first-start-lg-0">
+  @foreach ($menus as $menu)
+    {{-- TODO: figure out how to indicate active url --}}
+    <li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement" id="menu-item-{{ $menu->id }}"
+      @class([
+          'menu-item',
+          'menu-item-type-taxonomy',
+          'menu-item-object-category',
+          'nav-item',
+          'menu-item-{{ $menu->id }}',
+          'menu-item-home' => $loop->first,
+          'active current-menu-item current_page_item' => false,
+          'dropdown mega-dropdown' => $menu->children->isNotEmpty(),
+      ])>
+      <a title="Home" href="{{ $menu->url }}" @class([
+          'nav-link',
+          'dropdown-toggle' => $menu->children->isNotEmpty(),
+      ])
+        @if ($menu->children->isNotEmpty()) id="menu-item-dropdown-{{ $menu->id }}" @endif>
+        {{ $menu->title }}
+      </a>
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
-</nav>
-
-
-<style>
-    /* CSS untuk mengatur submenu dropdown */
-    .dropdown-submenu {
-        position: relative;
-    }
-
-    .dropdown-submenu .dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-top: -1px;
-    }
-
-    /* Tampilkan submenu saat hover pada parent */
-    .dropdown-submenu:hover>.dropdown-menu {
-        display: block;
-    }
-
-    /* Rotasi icon dropdown untuk submenu */
-    .dropdown-submenu .dropdown-toggle::after {
-        transform: rotate(-90deg);
-        position: absolute;
-        right: 6px;
-        top: 50%;
-    }
-</style>
-
-<script>
-    // JavaScript untuk mengatur behavior dropdown
-    document.addEventListener('DOMContentLoaded', function() {
-        // Mencegah menutup dropdown saat mengklik submenu
-        document.querySelectorAll('.dropdown-menu').forEach(function(element) {
-            element.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-        });
-
-        // Toggle submenu saat mengklik dropdown-toggle
-        document.querySelectorAll('.dropdown-submenu > .dropdown-toggle').forEach(function(element) {
-            element.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                if (this.nextElementSibling.style.display === 'block') {
-                    this.nextElementSibling.style.display = 'none';
-                } else {
-                    this.nextElementSibling.style.display = 'block';
-                }
-            });
-        });
-    });
-</script>
+      @if ($menu->children->isNotEmpty())
+        <ul class="dropdown-menu" aria-labelledby="menu-item-dropdown-1342" role="menu">
+          @each('partials.submenu', $menu->children, 'menu')
+        </ul>
+      @endif
+    </li>
+  @endforeach
+</ul>
