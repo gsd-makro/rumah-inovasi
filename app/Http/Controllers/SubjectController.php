@@ -34,6 +34,7 @@ class SubjectController extends Controller
             $validated = $request->validate([
                 'name' => 'required|string',
             ]);
+            // dd($validated);
             Subject::create($validated);
             return redirect()->route('subjects.index')->with('success', 'Subject created successfully');
         } catch (Exception $e) {

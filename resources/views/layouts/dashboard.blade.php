@@ -16,6 +16,8 @@
   <link rel="stylesheet" crossorigin href="{{ asset('/compiled/css/app.css') }}" />
   <link rel="stylesheet" crossorigin href="{{ asset('/compiled/css/app-dark.css') }}" />
   <link rel="stylesheet" crossorigin href="{{ asset('/compiled/css/iconly.css') }}" />
+  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"> --}}
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
 </head>
 
 <body>
@@ -593,10 +595,14 @@
       </footer>
     </div>
   </div>
+
   <script src="{{ asset('/static/js/components/dark.js') }}"></script>
   <script src="{{ asset('/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
   <script src="{{ asset('/compiled/js/app.js') }}"></script>
+  @yield('scripts')
 </body>
 
 </html>
