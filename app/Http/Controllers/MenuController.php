@@ -14,7 +14,11 @@ class MenuController extends Controller
 	 */
 	public function index()
 	{
-		$menus = Menu::whereNull('parent_id')->with('children')->get();
+		$menus = Menu::whereNull('parent_id')->with(['children' => function($query) {
+			$query->orderBy('order')->with(['children' => function($query) {
+				$query->orderBy('order');
+			}]);
+		}])->orderBy('order')->get();
 		return view('dashboard.menus.index', ['menus' => $menus]);
 	}
 
@@ -34,12 +38,19 @@ class MenuController extends Controller
 		try {
 			$validated = $request->validate([
 				'name' => 'required|string',
-				'url' => 'required|string',
-				'order' => 'required|integer',
-				'is_active' => 'required|boolean',
-				'parent_id' => 'nullable|exists:menus,id'
+				'url' => 'nullable|string',
+				'title' => 'required|string',
+				'parent_id' => 'nullable|exists:menus,id',
 			]);
+			
 			$validated['slug'] = Str::slug($validated['name']);
+			if ($validated['parent_id'] !== null) {
+				$parent = Menu::find($validated['parent_id']);
+				$validated['order'] = $parent->children->count() + 1;
+			} else {
+				$validated['order'] = Menu::whereNull('parent_id')->count() + 1;
+			}
+			$validated['is_active'] = true;
 			Menu::create($validated);
 			return redirect()->route('menus.index')->with('success', 'Menu created successfully');
 		} catch (Exception $e) {
@@ -47,48 +58,41 @@ class MenuController extends Controller
 		}
 	}
 
-	/**
-	 * Display the specified resource.
-	 */
-	public function show(string $id)
-	{
-		$menu = Menu::with('children')->find($id);
-		return view('dashboard.menus.show', ['menu' => $menu]);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 */
-	public function edit(string $id)
-	{
-		$menu = Menu::find($id);
-		return view('dashboard.menus.edit', ['menu' => $menu]);
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 */
 	public function update(Request $request, string $id)
 	{
 		try {
 			$validated = $request->validate([
 				'name' => 'required|string',
-				'url' => 'required|string',
+				'url' => 'nullable|string',
 				'order' => 'required|integer',
-				'is_active' => 'required|boolean',
+				'is_active' => 'nullable',
 				'parent_id' => 'nullable|exists:menus,id'
 			]);
+
+			$validated['is_active'] = $request->has('is_active') == 'on' ? true : false;
 			$validated['slug'] = Str::slug($validated['name']);
-			Menu::find($id)->update($validated);
+			$menu = Menu::find($id);
+			if (!$menu) {
+				return back()->with('error', 'Menu not found');
+			}
+			if ($validated['order'] !== $menu->order) {
+				$parentId = $menu->parent_id;
+
+				$menuWithNewOrder = Menu::where('parent_id', $parentId)
+						->where('order', $validated['order'])
+						->first();
+
+				if ($menuWithNewOrder) {
+					$menuWithNewOrder->update(['order' => $menu->order]);
+				}
+			}
+			$menu->update($validated);
 			return redirect()->route('menus.index')->with('success', 'Menu updated successfully');
 		} catch (Exception $e) {
 			return back()->with('error', 'Failed to update menu');
 		}
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
 	public function destroy(string $id)
 	{
 		try {
