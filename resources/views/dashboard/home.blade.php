@@ -16,6 +16,7 @@
     <link rel="stylesheet" crossorigin href="{{ asset('/compiled/css/app.css') }}" />
     <link rel="stylesheet" crossorigin href="{{ asset('/compiled/css/app-dark.css') }}" />
     <link rel="stylesheet" crossorigin href="{{ asset('/compiled/css/iconly.css') }}" />
+   
 </head>
 
 <body>
@@ -421,6 +422,8 @@
             </footer>
         </div>
     </div>
+    
+
     <script src="{{ asset('/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 

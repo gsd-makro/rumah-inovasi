@@ -26,6 +26,12 @@
                 <span>Menu</span>
             </a>
         </li>
+        <li class="sidebar-item {{ Request::route()->named('infographics.*') ? 'active' : '' }}">
+            <a href="{{ route('infographics.index') }}" class="sidebar-link">
+                <i class="bi bi-grid-fill"></i>
+                <span>Infographics</span>
+            </a>
+        </li>
 
         <li class="sidebar-item has-sub">
             <a href="#" class="sidebar-link">
