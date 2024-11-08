@@ -29,12 +29,10 @@
                                 <td class="text-bold-500">{{ $key + 1 }}</td>
                                 <td>
                                     <div class="d-flex align-items-start">
-                                        <!-- Image aligned to the left -->
                                         <img src="{{ asset('storage/' . $infographic->image) }}"
                                             alt="{{ $infographic->title }}" class="img-thumbnail me-3" loading="lazy"
                                             style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
 
-                                        <!-- Title and additional info in one line without line breaks -->
                                         <div>
                                             <strong>{{ $infographic->title }}</strong><br>
                                             <span class="text-muted small">
@@ -44,9 +42,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button class="btn btn-warning" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#update" onclick="openEditModal({{ $infographic }})">
-                                        Edit
+                                    <a href="{{ route('infographics.edit', $infographic->id) }}"
+                                        class="btn btn-warning">Edit</a>
                                     </button>
                                     <button class="btn btn-danger" type="button" data-bs-toggle="modal"
                                         data-bs-target="#delete"
@@ -60,6 +57,8 @@
         </div>
     </section>
 @endsection
+
+@include('dashboard.infographics._delete')
 
 @push('scripts')
     <script>
