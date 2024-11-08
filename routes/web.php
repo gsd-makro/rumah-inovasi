@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndicatorController;
+use App\Http\Controllers\InfographicController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
@@ -126,5 +127,15 @@ Route::prefix('dashboard')->group(function () {
     'edit' => 'indicators.edit',
     'update' => 'indicators.update',
     'destroy' => 'indicators.destroy',
+  ]);
+
+  Route::resource('infographics', InfographicController::class)->names([
+    'index' => 'infographics.index',
+    'create' => 'infographics.create',
+    'store' => 'infographics.store',
+    'show' => 'infographics.show',
+    'edit' => 'infographics.edit',
+    'update' => 'infographics.update',
+    'destroy' => 'infographics.destroy',
   ]);
 });

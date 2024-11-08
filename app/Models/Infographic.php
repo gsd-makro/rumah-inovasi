@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Infographic extends Model
 {
-    //
+    protected $guarded = [];
+
+    public function indicators()
+    {
+        return $this->belongsToMany(Indicator::class, 'pivot_infographics_indicators');
+    }
 }
