@@ -24,4 +24,8 @@ class Menu extends Model
 			Cache::forget('menus');
 		});
 	}
+
+	public function document() {
+		return $this->hasMany(Document::class);
+	}
 }

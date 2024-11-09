@@ -41,4 +41,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function document(){
+        return $this->hasMany(Document::class);
+    }
 }

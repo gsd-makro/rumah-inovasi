@@ -6,6 +6,7 @@ use App\Http\Controllers\InfographicController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => view('landing.home', [
@@ -144,5 +145,15 @@ Route::prefix('dashboard')->group(function () {
     'edit' => 'infographics.edit',
     'update' => 'infographics.update',
     'destroy' => 'infographics.destroy',
+  ]);
+
+  Route::resource('documents', DocumentController::class)->names([
+    'index' => 'documents.index',
+    'create' => 'documents.create',
+    'store' => 'documents.store',
+    'show' => 'documents.show',
+    'edit' => 'documents.edit',
+    'update' => 'documents.update',
+    'destroy' => 'documents.destroy',
   ]);
 });
