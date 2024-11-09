@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Indicator;
 use App\Models\Infographic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class InfographicController extends Controller
@@ -14,7 +15,7 @@ class InfographicController extends Controller
      */
     public function index()
     {
-        $infographics = Infographic::all();
+        $infographics = Infographic::where('user_id', Auth::user()->id)->get();
         return view('dashboard.infographics.index', [
             'infographics' => $infographics,
         ]);
@@ -52,7 +53,7 @@ class InfographicController extends Controller
 
         // Simpan data infografik ke dalam database
         $infographic = Infographic::create([
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
             'title' => $validated['title'],
             'image' => $path,
         ]);

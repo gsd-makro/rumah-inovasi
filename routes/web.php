@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\InfographicController;
 use App\Http\Controllers\MenuController;
@@ -83,6 +84,12 @@ Route::get('/', fn() => view('landing.home', [
     ]
   ])
 ]));
+
+Route::prefix('/auth')->controller(AuthController::class)->group(function () {
+  Route::get('/login', 'index')->name('login');
+  Route::post('/login', 'authenticate')->name('authenticate');
+  Route::post('/logout', 'logout')->name('logout');
+});
 
 Route::prefix('dashboard')->group(function () {
   Route::get('/', fn() => view('dashboard.home'))->name('dashboard.home');
