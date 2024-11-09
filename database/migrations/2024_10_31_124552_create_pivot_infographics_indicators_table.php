@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('infographic_id')->references('id')->on('infographics')->cascadeOnDelete();
             $table->foreignId('indicator_id')->references('id')->on('indicators')->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 
