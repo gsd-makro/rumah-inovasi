@@ -16,7 +16,7 @@
     <link rel="stylesheet" crossorigin href="{{ asset('/compiled/css/app.css') }}" />
     <link rel="stylesheet" crossorigin href="{{ asset('/compiled/css/app-dark.css') }}" />
     <link rel="stylesheet" crossorigin href="{{ asset('/compiled/css/iconly.css') }}" />
-   
+
 </head>
 
 <body>
@@ -349,8 +349,7 @@
                                         <img src="{{ asset('/compiled/jpg/1.jpg') }}" alt="Face 1" />
                                     </div>
                                     <div class="ms-3 name">
-                                        <h5 class="font-bold">John Duck</h5>
-                                        <h6 class="text-muted mb-0">@johnducky</h6>
+                                        <h5 class="font-bold">{{ auth()->user()->name }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -422,7 +421,7 @@
             </footer>
         </div>
     </div>
-    
+
 
     <script src="{{ asset('/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
