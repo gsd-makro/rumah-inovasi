@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('indicators', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subject_id')->references('id')->on('subjects')->cascadeOnDelete();
+            $table->foreignId('subject_id')->references('id')->on('subjects')->restrictOnDelete();
             $table->string('name');
             $table->timestamps();
         });

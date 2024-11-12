@@ -7,6 +7,9 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\VideoController;
+use App\Http\Middleware\SuperAdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => view('landing.home', [
@@ -92,10 +95,9 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
   Route::post('/logout', 'logout')->name('logout');
 });
 
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->middleware(['auth'])->group(function () {
   Route::get('/', fn() => view('dashboard.home'))->name('dashboard.home');
   Route::get('/blank', fn() => view('dashboard.blank'))->name('dashboard');
-  Route::get('/infographic', fn() => view('dashboard.infographic.infographic'))->name('dashboard');
 
   Route::resource('menus', MenuController::class)->names([
     'index' => 'menus.index',
@@ -105,7 +107,7 @@ Route::prefix('dashboard')->group(function () {
     'edit' => 'menus.edit',
     'update' => 'menus.update',
     'destroy' => 'menus.destroy',
-  ]);
+  ])->middleware(SuperAdminMiddleware::class);
 
   Route::resource('users', UserController::class)->names([
     'index' => 'users.index',
@@ -115,7 +117,7 @@ Route::prefix('dashboard')->group(function () {
     'edit' => 'users.edit',
     'update' => 'users.update',
     'destroy' => 'users.destroy',
-  ]);
+  ])->middleware(SuperAdminMiddleware::class);
 
   Route::resource('subjects', SubjectController::class)->names([
     'index' => 'subjects.index',
@@ -125,7 +127,7 @@ Route::prefix('dashboard')->group(function () {
     'edit' => 'subjects.edit',
     'update' => 'subjects.update',
     'destroy' => 'subjects.destroy',
-  ]);
+  ])->middleware(SuperAdminMiddleware::class);
 
   Route::resource('indicators', IndicatorController::class)->names([
     'index' => 'indicators.index',
@@ -135,7 +137,7 @@ Route::prefix('dashboard')->group(function () {
     'edit' => 'indicators.edit',
     'update' => 'indicators.update',
     'destroy' => 'indicators.destroy',
-  ]);
+  ])->middleware(SuperAdminMiddleware::class);
 
   Route::resource('infographics', InfographicController::class)->names([
     'index' => 'infographics.index',
@@ -147,6 +149,8 @@ Route::prefix('dashboard')->group(function () {
     'destroy' => 'infographics.destroy',
   ]);
 
+  Route::put('/infographics/{id}/verify', [InfographicController::class, 'verify'])->name('infographics.verify')->middleware(SuperAdminMiddleware::class);
+
   Route::resource('documents', DocumentController::class)->names([
     'index' => 'documents.index',
     'create' => 'documents.create',
@@ -156,4 +160,26 @@ Route::prefix('dashboard')->group(function () {
     'update' => 'documents.update',
     'destroy' => 'documents.destroy',
   ]);
+
+  Route::put('/documents/{id}/verify', [DocumentController::class, 'verify'])->name('documents.verify')->middleware(SuperAdminMiddleware::class);
+
+  Route::resource('videos', VideoController::class)->names([
+    'index' => 'videos.index',
+    'create' => 'videos.create',
+    'store' => 'videos.store',
+    'show' => 'videos.show',
+    'edit' => 'videos.edit',
+    'update' => 'videos.update',
+    'destroy' => 'videos.destroy',
+  ]);
+
+  Route::put('/videos/{id}/verify', [VideoController::class, 'verify'])->name('videos.verify')->middleware(SuperAdminMiddleware::class);
+
+  Route::prefix('/feedbacks')->controller(FeedbackController::class)->group(function () {
+    Route::get('/', 'index')->name('feedbacks.index');
+    Route::put('/{id}/approved', 'approve')->name('feedbacks.approve');
+    Route::put('/{id}/reply', 'reply')->name('feedbacks.reply');
+    Route::delete('/{id}/destroy', 'destroy')->name('feedbacks.destroy');
+    Route::put('/read', 'read')->name('feedbacks.markRead');
+  });
 });

@@ -12,4 +12,9 @@ class Infographic extends Model
     {
         return $this->belongsToMany(Indicator::class, 'pivot_infographics_indicators');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

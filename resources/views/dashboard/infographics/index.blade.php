@@ -1,16 +1,16 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Infografik')
-@section('subtitle', 'Infografik.')
+@section('title', 'Manajemen Infografik')
+@section('subtitle', 'Halaman untuk mengelola dan mengatur daftar infografik dalam sistem.')
 
 @section('main')
     <section class="section">
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0 card-title">Kelola Infografik</h4>
+                    <h4 class="mb-0 card-title">Daftar Infografik</h4>
                     <a href="{{ route('infographics.create') }}" class="btn btn-primary">
-                        Tambah Data
+                        Tambah Data <i class="bi bi-plus-circle"></i>
                     </a>
                 </div>
             </div>
@@ -35,19 +35,34 @@
 
                                         <div>
                                             <strong>{{ $infographic->title }}</strong><br>
+                                            <div>
+                                                @if ($infographic->status == 'pending')
+                                                    <span class="badge bg-secondary">Menunggu</span>
+                                                @elseif ($infographic->status == 'approved')
+                                                    <span class="badge bg-success">Disetujui</span>
+                                                @elseif ($infographic->status == 'rejected')
+                                                    <span class="badge bg-danger">Ditolak</span>
+                                                @endif
+                                            </div>
                                             <span class="text-muted small">
-                                                Dibuat oleh: John Doe di 10 Oktober 2024
+                                                Dibuat oleh: {{ $infographic->user->name }} pada
+                                                {{ $infographic->created_at->translatedFormat('d F Y') }}
                                             </span>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('infographics.edit', $infographic->id) }}"
-                                        class="btn btn-warning">Edit</a>
+                                    @if (auth()->user()->role == 'superadmin')
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#verify" onclick="openVerifyModal({{ $infographic }})"><i
+                                                class="bi bi-file-check"></i></button>
+                                    @endif
+                                    <a href="{{ route('infographics.edit', $infographic->id) }}" class="btn btn-warning"><i
+                                            class="bi bi-pencil-square"></i></a>
                                     </button>
                                     <button class="btn btn-danger" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#delete"
-                                        onclick="openDeleteModal({{ $infographic }})">Hapus</button>
+                                        data-bs-target="#delete" onclick="openDeleteModal({{ $infographic }})"><i
+                                            class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -59,9 +74,31 @@
 @endsection
 
 @include('dashboard.infographics._delete')
+@include('dashboard.infographics._verify')
 
 @push('scripts')
     <script>
         new DataTable('#table1');
     </script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                title: "Success!",
+                text: "{{ session('success') }}",
+                icon: "success",
+                timer: 2000
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                title: "Error!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                timer: 2000
+            });
+        </script>
+    @endif
 @endpush

@@ -84,4 +84,14 @@
     <script src="{{ asset('/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('/static/js/pages/filepond.js') }}"></script>
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                title: "Error!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                timer: 2000
+            });
+        </script>
+    @endif
 @endpush
