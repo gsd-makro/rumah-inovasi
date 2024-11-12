@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Subject;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller
 {
@@ -36,29 +37,29 @@ class SubjectController extends Controller
             ]);
             // dd($validated);
             Subject::create($validated);
-            return redirect()->route('subjects.index')->with('success', 'Subject created successfully');
+            return redirect()->route('subjects.index')->with('success', 'Subjek berhasil dibuat');
         } catch (Exception $e) {
-            return redirect()->route('subjects.index')->with('error', 'Failed to create subject');
+            return redirect()->route('subjects.index')->with('error', 'Subjek gagal dibuat, periksa kembali inputan anda');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $subject = Subject::find($id);
-        return view('dashboard.subjects.show', ['subject' => $subject]);
-    }
+    // public function show(string $id)
+    // {
+    //     $subject = Subject::find($id);
+    //     return view('dashboard.subjects.show', ['subject' => $subject]);
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $subject = Subject::find($id);
-        return view('dashboard.subjects.edit', ['subject' => $subject]);
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  */
+    // public function edit(string $id)
+    // {
+    //     $subject = Subject::find($id);
+    //     return view('dashboard.subjects.edit', ['subject' => $subject]);
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -70,9 +71,9 @@ class SubjectController extends Controller
                 'name' => 'required|string',
             ]);
             Subject::find($id)->update($validated);
-            return redirect()->route('subjects.index')->with('success', 'Subject updated successfully');
+            return redirect()->route('subjects.index')->with('success', 'Subjek berhasil diperbarui');
         } catch (Exception $e) {
-            return redirect()->route('subjects.index')->with('error', 'Failed to update subject');
+            return redirect()->route('subjects.index')->with('error', 'Subjek gagal diperbarui, periksa kembali inputan anda');
         }
     }
 
@@ -83,9 +84,9 @@ class SubjectController extends Controller
     {
         try {
             Subject::destroy($id);
-            return redirect()->route('subjects.index')->with('success', 'Subject deleted successfully');
+            return redirect()->route('subjects.index')->with('success', 'Subjek berhasil dihapus');
         } catch (Exception $e) {
-            return redirect()->route('subjects.index')->with('error', 'Failed to delete subject');
+            return redirect()->route('subjects.index')->with('error', 'Subjek gagal dihapus');
         }
     }
 }

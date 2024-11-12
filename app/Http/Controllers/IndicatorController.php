@@ -44,29 +44,29 @@ class IndicatorController extends Controller
                 'subject_id' => 'required|exists:subjects,id',
             ]);
             Indicator::create($validated);
-            return redirect()->route('indicators.index')->with('success', 'Indicator created successfully');
+            return redirect()->route('indicators.index')->with('success', 'Indikator berhasil dibuat');
         } catch (Exception $e) {
-            return redirect()->route('indicators.index')->with('error', 'Failed to create indicator');
+            return redirect()->route('indicators.index')->with('error', 'Indikator gagal dibuat, periksa kembali inputan anda');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $indicator = Indicator::find($id);
-        return view('dashboard.indicators.show', ['indicator' => $indicator]);
-    }
+    // public function show(string $id)
+    // {
+    //     $indicator = Indicator::find($id);
+    //     return view('dashboard.indicators.show', ['indicator' => $indicator]);
+    // }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        $indicator = Indicator::find($id);
-        return view('dashboard.indicators.edit', ['indicator' => $indicator]);
-    }
+    // public function edit(string $id)
+    // {
+    //     $indicator = Indicator::find($id);
+    //     return view('dashboard.indicators.edit', ['indicator' => $indicator]);
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -79,9 +79,9 @@ class IndicatorController extends Controller
                 'subject_id' => 'required|exists:subjects,id',
             ]);
             Indicator::find($id)->update($validated);
-            return redirect()->route('indicators.index')->with('success', 'Indicator updated successfully');
+            return redirect()->route('indicators.index')->with('success', 'Indikator berhasil diperbarui');
         } catch (Exception $e) {
-            return redirect()->route('indicators.index')->with('error', 'Failed to update indicator');
+            return redirect()->route('indicators.index')->with('error', 'Indikator gagal diperbarui, periksa kembali inputan Anda');
         }
     }
 
@@ -92,9 +92,9 @@ class IndicatorController extends Controller
     {
         try {
             Indicator::destroy($id);
-            return redirect()->route('indicators.index')->with('success', 'Indicator deleted successfully');
+            return redirect()->route('indicators.index')->with('success', 'Indikator berhasil dihapus');
         } catch (Exception $e) {
-            return redirect()->route('indicators.index')->with('error', 'Failed to delete indicator');
+            return redirect()->route('indicators.index')->with('error', 'Indikator gagal dihapus');
         }
     }
 }

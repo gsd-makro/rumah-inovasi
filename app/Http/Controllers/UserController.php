@@ -13,17 +13,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::whereNotIn('role', ['superadmin'])->get();
         return view('dashboard.users.index', ['users' => $users]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('dashboard.users.create');
-    }
+    // public function create()
+    // {
+    //     return view('dashboard.users.create');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -35,12 +35,12 @@ class UserController extends Controller
                 'name' => 'required|string',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:8',
-                'role' => 'required|string|in:admin,superadmin',
             ]);
+            $validated['role'] = 'admin';
             User::create($validated);
-            return redirect()->route('users.index')->with('success', 'User created successfully');
+            return redirect()->route('users.index')->with('success', 'Pengguna berhasil dibuat');
         } catch (Exception $e) {
-            return redirect()->route('users.index')->with('error', 'Failed to create user');
+            return redirect()->route('users.index')->with('error', 'Pengguna gagal dibuat, periksa kembali data yang diinput');
         }
     }
 
@@ -71,14 +71,12 @@ class UserController extends Controller
             $validated = $request->validate([
                 'name' => 'required|string',
                 'email' => 'required|email|unique:users,email,' . $id,
-                'password' => 'required|string|min:8',
-                'role' => 'required|string|in:admin,superadmin',
             ]);
             $user = User::find($id);
             $user->update($validated);
-            return redirect()->route('users.index')->with('success', 'User updated successfully');
+            return redirect()->route('users.index')->with('success', 'Pengguna berhasil diperbarui');
         } catch (Exception $e) {
-            return redirect()->route('users.index')->with('error', 'Failed to update user');
+            return redirect()->route('users.index')->with('error', 'Pengguna gagal diperbarui, periksa kembali data yang diinput');
         }
     }
 
@@ -89,9 +87,9 @@ class UserController extends Controller
     {
         try {
             User::destroy($id);
-            return redirect()->route('users.index')->with('success', 'User deleted successfully');
+            return redirect()->route('users.index')->with('success', 'Pengguna berhasil dihapus');
         } catch (Exception $e) {
-            return redirect()->route('users.index')->with('error', 'Failed to delete user');
+            return redirect()->route('users.index')->with('error', 'Pengguna gagal dihapus');
         }
     }
 }

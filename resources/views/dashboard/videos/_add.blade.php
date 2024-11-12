@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('documents.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('videos.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="basicInput">Judul</label>
@@ -17,9 +17,9 @@
                             placeholder="Masukkan Judul Dokumen">
                     </div>
                     <div class="form-group">
-                        <label for="basicInput">Berkas</label>
-                        <input type="file" name="file_path" class="form-control" id="file_path"
-                            placeholder="Masukkan File Dokumen">
+                        <label for="basicInput">Link Youtube</label>
+                        <input type="text" name="link_path" class="form-control" id="file_path"
+                            placeholder="Masukkan Link Embed Video">
                     </div>
                     <div class="form-group">
                         <label for="basicInput">Menu</label>

@@ -1,17 +1,17 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Menu')
-@section('subtitle', 'Menu.')
+@section('title', 'Manajemen Menu')
+@section('subtitle', 'Halaman untuk mengelola dan mengatur daftar menu dalam sistem.')
 
 @section('main')
     <section class="section">
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0 card-title">Kelola Menu</h4>
+                    <h4 class="mb-0 card-title">Daftar Menu</h4>
                     <!-- Button trigger for basic modal -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah">
-                        Tambah Menu
+                        Tambah Menu <i class="bi bi-plus-circle"></i>
                     </button>
                 </div>
             </div>
@@ -207,3 +207,27 @@
     <!-- Repeat similar modal structures for submenus and sub submenus -->
 
 @endsection
+
+@push('scripts')
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                title: "Success!",
+                text: "{{ session('success') }}",
+                icon: "success",
+                timer: 2000
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                title: "Error!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                timer: 2000
+            });
+        </script>
+    @endif
+@endpush

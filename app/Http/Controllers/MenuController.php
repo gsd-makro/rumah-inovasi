@@ -14,8 +14,8 @@ class MenuController extends Controller
 	 */
 	public function index()
 	{
-		$menus = Menu::whereNull('parent_id')->with(['children' => function($query) {
-			$query->orderBy('order')->with(['children' => function($query) {
+		$menus = Menu::whereNull('parent_id')->with(['children' => function ($query) {
+			$query->orderBy('order')->with(['children' => function ($query) {
 				$query->orderBy('order');
 			}]);
 		}])->orderBy('order')->get();
@@ -42,7 +42,7 @@ class MenuController extends Controller
 				'title' => 'required|string',
 				'parent_id' => 'nullable|exists:menus,id',
 			]);
-			
+
 			$validated['slug'] = Str::slug($validated['name']);
 			if ($validated['parent_id'] !== null) {
 				$parent = Menu::find($validated['parent_id']);
@@ -52,9 +52,9 @@ class MenuController extends Controller
 			}
 			$validated['is_active'] = true;
 			Menu::create($validated);
-			return redirect()->route('menus.index')->with('success', 'Menu created successfully');
+			return redirect()->route('menus.index')->with('success', 'Menu berhasil dibuat');
 		} catch (Exception $e) {
-			return back()->with('error', 'Failed to create menu');
+			return back()->with('error', 'Menu gagal dibuat, periksa kembali inputan anda');
 		}
 	}
 
@@ -79,17 +79,17 @@ class MenuController extends Controller
 				$parentId = $menu->parent_id;
 
 				$menuWithNewOrder = Menu::where('parent_id', $parentId)
-						->where('order', $validated['order'])
-						->first();
+					->where('order', $validated['order'])
+					->first();
 
 				if ($menuWithNewOrder) {
 					$menuWithNewOrder->update(['order' => $menu->order]);
 				}
 			}
 			$menu->update($validated);
-			return redirect()->route('menus.index')->with('success', 'Menu updated successfully');
+			return redirect()->route('menus.index')->with('success', 'Menu berhasil diperbarui');
 		} catch (Exception $e) {
-			return back()->with('error', 'Failed to update menu');
+			return back()->with('error', 'Menu gagal diperbarui, periksa kembali inputan anda');
 		}
 	}
 
@@ -105,9 +105,9 @@ class MenuController extends Controller
 				$menu->delete();
 			}
 
-			return redirect()->route('menus.index')->with('success', 'Menu deleted successfully');
+			return redirect()->route('menus.index')->with('success', 'Menu berhasil dihapus');
 		} catch (Exception $e) {
-			return back()->with('error', 'Failed to delete menu');
+			return back()->with('error', 'Menu gagal dihapus');
 		}
 	}
 
