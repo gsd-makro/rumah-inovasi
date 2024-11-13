@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('infographics', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('menu_id')->default(44)->references('id')->on('menus')->cascadeOnDelete();
             $table->string('title');
             $table->string('image');
             $table->integer('total_likes')->default(0);

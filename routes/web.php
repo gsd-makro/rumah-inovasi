@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\InfographicController;
 use App\Http\Controllers\MenuController;
@@ -96,8 +97,8 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 });
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
-  Route::get('/', fn() => view('dashboard.home'))->name('dashboard.home');
-  Route::get('/blank', fn() => view('dashboard.blank'))->name('dashboard');
+  Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
+  // Route::get('/blank', fn() => view('dashboard.blank'))->name('dashboard');
 
   Route::resource('menus', MenuController::class)->names([
     'index' => 'menus.index',
@@ -180,6 +181,6 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::put('/{id}/approved', 'approve')->name('feedbacks.approve');
     Route::put('/{id}/reply', 'reply')->name('feedbacks.reply');
     Route::delete('/{id}/destroy', 'destroy')->name('feedbacks.destroy');
-  Route::put('/read', 'read')->name('feedbacks.markRead');
+    Route::put('/read', 'read')->name('feedbacks.markRead');
   });
 });
