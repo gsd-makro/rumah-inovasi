@@ -39,6 +39,7 @@ class FeedbackController extends Controller
     {
         $feedback = Feedback::find($request->id);
         $feedback->admin_reply = $request->reply;
+        $feedback->is_read = true;
         $feedback->save();
         return redirect()->route('feedbacks.index')->with('success', 'Feedback berhasil dijawab');
     }

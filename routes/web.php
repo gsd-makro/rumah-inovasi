@@ -180,6 +180,6 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::put('/{id}/approved', 'approve')->name('feedbacks.approve');
     Route::put('/{id}/reply', 'reply')->name('feedbacks.reply');
     Route::delete('/{id}/destroy', 'destroy')->name('feedbacks.destroy');
-    Route::put('/read', 'read')->name('feedbacks.markRead');
+  Route::put('/read', 'read')->name('feedbacks.markRead');
   });
 });
