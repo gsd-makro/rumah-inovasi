@@ -44,6 +44,7 @@ class MenuController extends Controller
 			]);
 
 			$validated['slug'] = Str::slug($validated['name']);
+			$validated['url'] = Str::lower($validated['url']);
 			if ($validated['parent_id'] !== null) {
 				$parent = Menu::find($validated['parent_id']);
 				$validated['order'] = $parent->children->count() + 1;
@@ -63,11 +64,13 @@ class MenuController extends Controller
 		try {
 			$validated = $request->validate([
 				'name' => 'required|string',
+				'title' => 'required|string',
 				'url' => 'nullable|string',
 				'order' => 'required|integer',
 				'is_active' => 'nullable',
 				'parent_id' => 'nullable|exists:menus,id'
 			]);
+			$validated['url'] = Str::lower($validated['url']);
 
 			$validated['is_active'] = $request->has('is_active') == 'on' ? true : false;
 			$validated['slug'] = Str::slug($validated['name']);

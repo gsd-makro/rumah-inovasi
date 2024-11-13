@@ -15,8 +15,7 @@
                     <div class="form-group">
                         <label for="status">Status</label>
                         <select name="status" id="status" class="form-select">
-                            <option value="appro
-                            ved">Disetujui</option>
+                            <option value="approved">Disetujui</option>
                             <option value="rejected">Ditolak</option>
                         </select>
                     </div>

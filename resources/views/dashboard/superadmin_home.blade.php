@@ -78,7 +78,7 @@
             </header>
 
             <div class="page-heading">
-                <h3>Profile Statistics</h3>
+                <h3>Dashboard Statistik dan Analitik Rinov Go</h3>
             </div>
             <div class="page-content">
                 <section class="row">
@@ -91,14 +91,14 @@
                                             <div
                                                 class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                                                 <div class="stats-icon purple mb-2">
-                                                    <i class="iconly-boldShow"></i>
+                                                    <i class="iconly-boldGraph"></i>
                                                 </div>
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">
-                                                    Profile Views
+                                                    Infografis
                                                 </h6>
-                                                <h6 class="font-extrabold mb-0">112.000</h6>
+                                                <h6 class="font-extrabold mb-0">21</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -111,12 +111,12 @@
                                             <div
                                                 class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                                                 <div class="stats-icon blue mb-2">
-                                                    <i class="iconly-boldProfile"></i>
+                                                    <i class="iconly-boldVideo"></i>
                                                 </div>
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">Followers</h6>
-                                                <h6 class="font-extrabold mb-0">183.000</h6>
+                                                <h6 class="text-muted font-semibold">Video</h6>
+                                                <h6 class="font-extrabold mb-0">18</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -129,12 +129,12 @@
                                             <div
                                                 class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                                                 <div class="stats-icon green mb-2">
-                                                    <i class="iconly-boldAdd-User"></i>
+                                                    <i class="iconly-boldDocument"></i>
                                                 </div>
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">Following</h6>
-                                                <h6 class="font-extrabold mb-0">80.000</h6>
+                                                <h6 class="text-muted font-semibold">Dokumen</h6>
+                                                <h6 class="font-extrabold mb-0">8</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -147,12 +147,84 @@
                                             <div
                                                 class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                                                 <div class="stats-icon red mb-2">
-                                                    <i class="iconly-boldBookmark"></i>
+                                                    <i class="iconly-boldPaper"></i>
                                                 </div>
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">Saved Post</h6>
-                                                <h6 class="font-extrabold mb-0">112</h6>
+                                                <h6 class="text-muted font-semibold">Berita</h6>
+                                                <h6 class="font-extrabold mb-0">12</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div
+                                                class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                <div class="stats-icon green mb-2">
+                                                    <i class="iconly-boldUser"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">User Aktif</h6>
+                                                <h6 class="font-extrabold mb-0">28</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div
+                                                class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                <div class="stats-icon green mb-2">
+                                                    <i class="iconly-boldDocument"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">Subjek</h6>
+                                                <h6 class="font-extrabold mb-0">28</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div
+                                                class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                <div class="stats-icon green mb-2">
+                                                    <i class="iconly-boldCategory"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">Indikator</h6>
+                                                <h6 class="font-extrabold mb-0">28</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div
+                                                class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                <div class="stats-icon green mb-2">
+                                                    <i class="iconly-boldChat"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">Feedback</h6>
+                                                <h6 class="font-extrabold mb-0">28</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +235,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Profile Visit</h4>
+                                        <h4>Jumlah Kunjungan, Suka, dan Unduh Infografis</h4>
                                     </div>
                                     <div class="card-body">
                                         <div id="chart-profile-visit"></div>
@@ -172,91 +244,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-xl-4">
+                            <div class="col-12 col-xl-10">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>Profile Visit</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-primary" width="32" height="32"
-                                                        fill="blue" style="width: 10px">
-                                                        <use
-                                                            xlink:href="{{ asset('/static/images/bootstrap-icons.svg#circle-fill') }}" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">Europe</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-5">
-                                                <h5 class="mb-0 text-end">862</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-europe"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-success" width="32" height="32"
-                                                        fill="blue" style="width: 10px">
-                                                        <use
-                                                            xlink:href="{{ asset('/static/images/bootstrap-icons.svg#circle-fill') }}" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">America</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-5">
-                                                <h5 class="mb-0 text-end">375</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-america"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-success" width="32" height="32"
-                                                        fill="blue" style="width: 10px">
-                                                        <use
-                                                            xlink:href="{{ asset('/static/images/bootstrap-icons.svg#circle-fill') }}" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">India</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-5">
-                                                <h5 class="mb-0 text-end">625</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-india"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-danger" width="32" height="32"
-                                                        fill="blue" style="width: 10px">
-                                                        <use
-                                                            xlink:href="{{ asset('/static/images/bootstrap-icons.svg#circle-fill') }}" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">Indonesia</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-5">
-                                                <h5 class="mb-0 text-end">1025</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-indonesia"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-xl-8">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Latest Comments</h4>
+                                        <h4>Feedback Terbaru</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -356,7 +347,7 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h4>Recent Messages</h4>
+                                <h4>TOP Admin</h4>
                             </div>
                             <div class="card-content pb-4">
                                 <div class="recent-message d-flex px-4 py-3">
@@ -386,16 +377,11 @@
                                         <h6 class="text-muted mb-0">@dodoljohn</h6>
                                     </div>
                                 </div>
-                                <div class="px-4">
-                                    <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3">
-                                        Start Conversation
-                                    </button>
-                                </div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h4>Visitors Profile</h4>
+                                <h4>Subjek Terbanyak</h4>
                             </div>
                             <div class="card-body">
                                 <div id="chart-visitors-profile"></div>
