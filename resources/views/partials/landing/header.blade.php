@@ -7,6 +7,9 @@
 
   <!-- This site is optimized with the Yoast SEO plugin v22.6 - https://yoast.com/wordpress/plugins/seo/ -->
   <title>| {{ $title }}</title>
+
+  <link rel="stylesheet" href="{{ asset('/vendor/css/colors.css') }}">
+
   <meta name="description" content="{{ $title }}" />
   <link rel="canonical" href="{{ env('APP_URL', 'https://bapppeda.gorontaloprov.go.id') }}/" />
   <meta property="og:locale" content="id_ID" />
@@ -612,7 +615,8 @@
     body article.sticky .read-single:before,
     .read-img .trending-no,
     body .trending-posts-vertical .trending-no {
-      background-color: #FFC934;
+      /*background-color: #FFC934;*/
+      background-color: var(--secondary);
     }
 
     body .aft-see-more a {
@@ -646,7 +650,8 @@
     .aft-light-mode p.awpa-more-posts a:hover,
     p.awpa-more-posts a:hover,
     .wp-post-author-meta .wp-post-author-meta-more-posts a.awpa-more-posts:hover {
-      border-color: #FFC934;
+      /*border-color: #FFC934;*/
+      border-color: var(--secondary);
     }
 
     body .entry-content>[class*="wp-block-"] a:not(.has-text-color),
@@ -672,7 +677,8 @@
     .read-title h4 a:hover,
     .read-title h2 a:hover,
     #scroll-up::after {
-      border-bottom-color: #FFC934;
+      /*border-bottom-color: #FFC934;*/
+      border-bottom-color: var(--secondary);
     }
 
     .page-links a.post-page-numbers,
@@ -692,7 +698,8 @@
 
     body.aft-light-mode p.awpa-website a:hover,
     body.aft-dark-mode p.awpa-website a:hover {
-      color: #FFC934;
+      /*color: #FFC934;*/
+      color: var(--secondary);
     }
 
     .woocommerce div.product form.cart .reset_variations,
@@ -722,7 +729,8 @@
     body.aft-dark-mode .tagcloud a:hover,
     .aft-dark-mode .wp-post-author-meta .wp-post-author-meta-more-posts a:hover,
     body footer.site-footer .wp-post-author-meta .wp-post-author-meta-more-posts a:hover {
-      border-color: #FFC934;
+      /*border-color: #FFC934;*/
+      border-color: var(--secondary);
     }
 
     .widget-title-border-side .widget_block .wp-block-search__label::before,
@@ -795,11 +803,13 @@
     .woocommerce-product-search button[type="submit"],
     .widget_mc4wp_form_widget input[type=submit],
     input.search-submit {
-      background-color: #FFC934;
+      /*background-color: #FFC934;*/
+      background-color: var(--secondary);
     }
 
     #wp-calendar tbody td a {
-      color: #FFC934;
+      /*color: #FFC934;*/
+      color: var(--secondary);
     }
 
     body.aft-light-mode .aft-readmore-wrapper a.aft-readmore:hover,
@@ -855,11 +865,13 @@
     body .entry-content>ol a:visited,
     body .entry-content>p a,
     body .entry-content>p a:visited {
-      border-color: #FFC934;
+      /*border-color: #FFC934;*/
+      border-color: var(--secondary);
     }
 
     body .aft-main-banner-section .aft-popular-taxonomies-lists strong::after {
-      border-color: transparent transparent transparent #FFC934;
+      /*border-color: transparent transparent transparent #FFC934;*/
+      border-color: transparent transparent transparent var(--secondary);
     }
 
     body.rtl .aft-main-banner-section .aft-popular-taxonomies-lists strong::after {
@@ -872,7 +884,8 @@
       .main-navigation .menu-desktop>ul>li.current-menu-item::after,
       .main-navigation .menu-desktop>li::after,
       .main-navigation .menu-desktop>ul>li::after {
-        background-color: #FFC934;
+        /*background-color: #FFC934;*/
+        background-color: var(--secondary);
       }
     }
 
@@ -1022,16 +1035,10 @@
       background-color: #000000;
     }
 
-
-    body div#main-navigation-bar {
-      background-color: #003bb3;
-    }
-
     .site-description,
     .site-title {
       font-family: Jost;
     }
-
 
     body p,
     .woocommerce form label,

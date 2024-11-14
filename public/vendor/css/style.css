@@ -2176,7 +2176,8 @@ div.custom-menu-link i {
 /*==========header-layout-with advertisement=============*/
 
 div#main-navigation-bar {
-    background: #003bb3;
+    /*background: #003bb3;*/
+    background: var(--primary);
 }
 
 .header-layout-side .af-bottom-head-nav ,
