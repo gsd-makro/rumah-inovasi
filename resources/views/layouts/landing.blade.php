@@ -3,6 +3,8 @@
 
 <head>
   @include('partials.landing.header', ['title' => $title])
+
+  @stack('styles')
 </head>
 
 <body
@@ -112,6 +114,7 @@
   </a>
   @include('partials.landing.footer')
 
+  @stack('scripts')
 </body>
 
 </html>
