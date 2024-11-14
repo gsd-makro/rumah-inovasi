@@ -44,7 +44,8 @@
               <div class="logo">
                 <div class="site-branding uppercase-site-title">
                   <h1 class="site-title font-family-1">
-                    <a href="https://bappeda.inhilkab.go.id/" class="site-title-anchor" rel="home"></a>
+                    <a href="{{ env('APP_URL', 'https://bapppeda.gorontaloprov.go.id') }}" class="site-title-anchor"
+                      rel="home"></a>
                   </h1>
                   <p class="site-description">Rumah Inovasi Gorontalo</p>
                 </div>

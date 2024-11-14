@@ -34,9 +34,7 @@
       <span class="author-links">
         <span class="item-metadata posts-author byline">
           <i class="far fa-user-circle"></i>
-          <a href="https://bappeda.inhilkab.go.id/author/admin/">
-            {{ $author }}
-          </a>
+          {{ $author }}
         </span>
         <span class="item-metadata posts-date">
           <i class="far fa-clock" aria-hidden="true"></i>

@@ -14,7 +14,6 @@
   <meta property="og:description" content="{{ $title }}" />
   <meta property="og:url" content="{{ env('APP_URL', 'https://bapppeda.gorontaloprov.go.id') }}/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://bappeda.inhilkab.go.id/","url":"https://bappeda.inhilkab.go.id/","name":"| {{ $title }}","isPartOf":{"@id":"https://bappeda.inhilkab.go.id/#website"},"about":{"@id":"https://bappeda.inhilkab.go.id/#organization"},"description":"{{ $title }}","breadcrumb":{"@id":"https://bappeda.inhilkab.go.id/#breadcrumb"},"inLanguage":"id"},{"@type":"BreadcrumbList","@id":"https://bappeda.inhilkab.go.id/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda"}]},{"@type":"WebSite","@id":"https://bappeda.inhilkab.go.id/#website","url":"https://bappeda.inhilkab.go.id/","name":"","description":"{{ $title }}","publisher":{"@id":"https://bappeda.inhilkab.go.id/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://bappeda.inhilkab.go.id/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"id"},{"@type":"Organization","@id":"https://bappeda.inhilkab.go.id/#organization","name":"Bappeda.inhilkab.go.id","url":"https://bappeda.inhilkab.go.id/","logo":{"@type":"ImageObject","inLanguage":"id","@id":"https://bappeda.inhilkab.go.id/#/schema/logo/image/","url":"http://bappeda.inhilkab.go.id/wp-content/uploads/2024/04/logo-inhil-big.png","contentUrl":"http://bappeda.inhilkab.go.id/wp-content/uploads/2024/04/logo-inhil-big.png","width":1370,"height":2000,"caption":"Bappeda.inhilkab.go.id"},"image":{"@id":"https://bappeda.inhilkab.go.id/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/bappedaindragirihilir","https://www.instagram.com/bappeda_indragirihilir/"]}]}</script>
   <!-- / Yoast SEO plugin. -->
 
   <link rel='dns-prefetch' href='//fonts.googleapis.com' />
@@ -30,7 +29,7 @@
       "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/",
       "svgExt": ".svg",
       "source": {
-        "concatemoji": "https:\/\/bappeda.inhilkab.go.id\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.5"
+        "concatemoji": "{{ preg_replace('/\//', '\/', asset('/vendor/js/wp-emoji-release.min.js')) }}"
       }
     };
     /*! This file is auto-generated */
@@ -152,8 +151,7 @@
       padding: 0 !important;
     }
   </style>
-  <link rel='stylesheet' id='wp-block-library-css'
-    href='https://bappeda.inhilkab.go.id/wp-includes/css/dist/block-library/style.min.css?ver=6.5.5' type='text/css'
+  <link rel='stylesheet' id='wp-block-library-css' href='{{ asset('/vendor/css/style.min.css') }}' type='text/css'
     media='all' />
   <style id='classic-theme-styles-inline-css' type='text/css'>
     /*! This file is auto-generated */
