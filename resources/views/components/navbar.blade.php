@@ -29,23 +29,24 @@
 </ul> --}}
 
 <ul id="primary-menu" class="menu">
-  @foreach ($menus as $menu)
-    @php($isActive = $loop->first)
-    <li id="menu-item-{{ $menu->id }}" @class([
-        "menu-item-{$menu->id}",
-        'menu-item',
-        'menu-item-type-custom',
-        'menu-item-object-custom',
-        'menu-item-home' => $loop->first,
-        'current-menu-item current_page_item active' => $isActive,
-        'menu-item-has-children' => $menu->children->isNotEmpty(),
-    ])>
-      <a href="{{ $menu->url }}" @if ($isActive) aria-current="page" @endif>{{ $menu->title }}</a>
-      @if ($menu->children->isNotEmpty())
-        <ul class="sub-menu">
-          @each('partials.submenu', $menu->children, 'menu')
-        </ul>
-      @endif
-    </li>
-  @endforeach
+    @foreach ($menus as $menu)
+        @php($isActive = $loop->first)
+        <li id="menu-item-{{ $menu->id }}" @class([
+            "menu-item-{$menu->id}",
+            'menu-item',
+            'menu-item-type-custom',
+            'menu-item-object-custom',
+            'menu-item-home' => $loop->first,
+            'current-menu-item current_page_item active' => $isActive,
+            'menu-item-has-children' => $menu->children->isNotEmpty(),
+        ])>
+            <a href="{{ $menu->url }}"
+                @if ($isActive) aria-current="page" @endif>{{ $menu->title }}</a>
+            @if ($menu->children->isNotEmpty())
+                <ul class="sub-menu">
+                    @each('partials.submenu', $menu->children, 'menu')
+                </ul>
+            @endif
+        </li>
+    @endforeach
 </ul>

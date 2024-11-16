@@ -19,8 +19,15 @@
                         <input type="text" name="title" class="form-control" id="menuTitle" required>
                     </div>
                     <div class="mb-3">
-                        <label for="menuUrl" class="form-label">Url</label>
-                        <input type="text" name="url" class="form-control" id="menuUrl">
+                        <label for="menuContentType" class="form-label">Tipe Konten</label>
+                        <select name="content_type" class="form-select" id="menuContentType">
+                            <option value="" selected>Pilih tipe konten</option>
+                            <option value="infographic">Infografis</option>
+                            <option value="document">Dokumen</option>
+                            <option value="policy brief">Policy Brief</option>
+                            <option value="video">Video</option>
+                            <option value="foto">Foto</option>
+                        </select>
                     </div>
                     <input type="hidden" name="parent_id" value="{{ $subMenu->id }}">
                     <div class="alert alert-info" role="alert">

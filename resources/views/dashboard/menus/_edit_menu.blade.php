@@ -24,10 +24,18 @@
                             name="title" value="{{ $menu->title }}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="updateSubSubMenuUrl{{ $menu->id }}" class="form-label">Url</label>
-                        <input type="text" class="form-control" id="updateSubSubMenuUrl{{ $menu->id }}"
-                            name="url" value="{{ $menu->url }}">
-                        <p class="text-bold text-sm">Kosongkan URL jika memilki Sub submenu</p>
+                        <label for="menuContentType" class="form-label">Tipe Konten</label>
+                        <select name="content_type" class="form-select" id="menuContentType">
+                            @php $contentTypes = ['infographic', 'document', 'policy brief' ,'video', 'foto']; @endphp
+                            <option value="" selected>Pilih tipe konten</option>
+                            @foreach ($contentTypes as $contentType)
+                                <option value="{{ $contentType }}"
+                                    {{ $contentType == $menu->content_type ? 'selected' : '' }}>
+                                    {{ ucfirst($contentType) }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <p>Kosongkan Tipe Konten jika memilki submenu</p>
                     </div>
 
                     <!-- Active Status Toggle -->
@@ -74,3 +82,6 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+@endpush

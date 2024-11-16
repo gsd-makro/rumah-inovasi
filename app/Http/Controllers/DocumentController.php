@@ -15,7 +15,7 @@ class DocumentController extends Controller
     public function index()
     {
         $documents = Auth::user()->role === 'superadmin' ? Document::all() : Document::where('user_id', Auth::user()->id)->get();
-        $menus = Menu::all();
+        $menus = Menu::WhereDoesntHave('children')->where('is_active', true)->get();
         return view('dashboard.documents.index', [
             'documents' => $documents,
             'menus' => $menus

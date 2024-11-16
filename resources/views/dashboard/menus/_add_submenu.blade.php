@@ -18,10 +18,17 @@
                         <input type="text" name="title" class="form-control" id="menuTitle" required>
                     </div>
                     <div class="mb-3">
-                        <label for="menuUrl" class="form-label">Url</label>
-                        <input type="text" name="url" class="form-control" id="menuUrl">
-                        <p class="text-bold text-sm">Kosongkan URL jika memilki Sub submenu</p>
+                        <label for="menuContentType" class="form-label">Tipe Konten</label>
+                        <select name="content_type" class="form-select" id="menuContentType1">
+                            <option value="" selected>Pilih tipe konten</option>
+                            <option value="infographic">Infografis</option>
+                            <option value="document">Dokumen</option>
+                            <option value="policy brief">Policy Brief</option>
+                            <option value="video">Video</option>
+                            <option value="foto">Foto</option>
+                        </select>
                     </div>
+                    <p>Kosongkan Tipe Konten jika memilki submenu</p>
                     <input type="hidden" name="parent_id" value="{{ $menu->id }}">
                     <div class="alert alert-info" role="alert">
                         <strong>Catatan:</strong> Nama Menu akan muncul di navbar, sedangkan Judul Menu akan muncul di

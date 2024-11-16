@@ -67,22 +67,22 @@
                 <main id="main" class="site-main">
                     <article id="post-853" class="post-853 page type-page status-publish hentry">
                         <header class="entry-header">
-                            <h1 class="entry-title">Infografis</h1>
+                            <h1 class="entry-title">Policy Brief</h1>
                         </header>
 
                         <div class="entry-content-wrap">
                             <div class="entry-content">
                                 <div class="section-wrapper af-widget-body">
-                                    @foreach ($infographics->chunk(4) as $row)
+                                    @foreach ($policyBriefs->chunk(4) as $row)
                                         <div class="af-container-row clearfix" style="margin-bottom: 20px">
-                                            @foreach ($row as $infographic)
+                                            @foreach ($row as $policybrief)
                                                 <div class="col-4 pad float-l trending-posts-item">
-                                                    <div class="infographic">
-                                                        <img class="infographic__thumbnail" loading="lazy" decoding="async"
-                                                            src="{{ asset('storage/' . $infographic->image) }}"
-                                                            alt="{{ $infographic->title }}" />
+                                                    <div class="policybrief">
+                                                        {{-- <img class="policybrief__thumbnail" loading="lazy" decoding="async"
+                                                            src="{{ asset('storage/' . $policybrief->file_path) }}"
+                                                            alt="{{ $policybrief->title }}" /> --}}
 
-                                                        <h3 class="infographic__title">{{ $infographic->title }}</h3>
+                                                        <h3 class="policybrief__title">{{ $policybrief->title }}</h3>
                                                     </div>
                                                 </div>
                                             @endforeach

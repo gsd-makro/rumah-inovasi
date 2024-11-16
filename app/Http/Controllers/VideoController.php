@@ -14,7 +14,7 @@ class VideoController extends Controller
     public function index()
     {
         $videos = Auth::user()->role === 'superadmin' ? Video::all() : Video::where('user_id', Auth::user()->id)->get();
-        $menus = Menu::all();
+        $menus = Menu::WhereDoesntHave('children')->where('is_active', true)->get();
         return view('dashboard.videos.index', [
             'videos' => $videos,
             'menus' => $menus
