@@ -28,7 +28,8 @@
                         <tr>
                             <th width="5%"></th>
                             <th width="5%">No</th>
-                            <th width="60%">Pesan</th>
+                            <th width="50%">Pesan</th>
+                            <th width="10%">Tag</th>
                             <th width="10%">Status</th>
                             <th width="20%">Aksi</th>
                         </tr>
@@ -45,6 +46,9 @@
                                         <p>Dari: {{ $feedback->name }}</p>
                                         <p>{{ Str::limit($feedback->feedback, 90, '...') }}</p>
                                     </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">{{ $feedback->tag }}</span>
                                 </td>
                                 <td class="text-bold-500">
                                     @if ($feedback->is_approved)

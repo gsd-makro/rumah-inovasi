@@ -41,6 +41,11 @@
                         <p class="mb-0" id="content"></p>
                     </div>
 
+                    <div class="mb-3 border p-3 rounded">
+                        <span class="fw-bold text-muted">Tag:</span>
+                        <p class="mb-0" id="tag"></p>
+                    </div>
+
                     <!-- Rating in Stars Section -->
                     <div class="mb-3 border p-3 rounded">
                         <div class="d-flex justify-content-between align-items-center">
@@ -87,6 +92,7 @@
             document.getElementById('email').textContent = value.email;
             document.getElementById('jobType').textContent = value.job_type;
             document.getElementById('content').textContent = value.feedback;
+            document.getElementById('tag').textContent = value.tag;
 
             const ratingContainer = document.getElementById('rating');
             ratingContainer.innerHTML = ''; // Clear any existing stars

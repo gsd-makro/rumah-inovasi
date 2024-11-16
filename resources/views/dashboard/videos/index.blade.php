@@ -53,10 +53,6 @@
                                 </td>
                                 <td class="text-bold-500">{{ $video->menu->name }}</td>
                                 <td>
-                                    <a target="#blank" href="{{ url('storage/' . $video->file_path) }}"
-                                        class="btn btn-primary">
-                                        <i class="bi bi-download"></i>
-                                    </a>
                                     @if (auth()->user()->role == 'superadmin')
                                         <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#verify" onclick="openVerifyModal({{ $video }})"><i

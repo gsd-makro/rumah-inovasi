@@ -25,7 +25,9 @@ class Menu extends Model
 		});
 	}
 
-	public function document() {
+
+	public function document()
+	{
 		return $this->hasMany(Document::class);
 	}
 }

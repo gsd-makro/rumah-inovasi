@@ -28,7 +28,7 @@
                                 <input type="password" name="password" class="form-control" id="passwordInput"
                                     placeholder="Masukkan Password">
                                 <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
-                                    <i class="bi bi-eye mb-2"></i>
+                                    <i class="bi bi-eye-slash mb-2"></i>
                                 </span>
                             </div>
                         </div>
@@ -58,12 +58,12 @@
 
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                icon.classList.remove('bi-eye');
-                icon.classList.add('bi-eye-slash');
-            } else {
-                passwordInput.type = 'password';
                 icon.classList.remove('bi-eye-slash');
                 icon.classList.add('bi-eye');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
             }
         });
     </script>

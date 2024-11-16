@@ -9,6 +9,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\VideoController;
 use App\Http\Middleware\SuperAdminMiddleware;
 use App\Models\Document;
@@ -325,6 +326,7 @@ Route::get('/', function () {
     'international' => $international,
   ]);
 })->name('landing.home');
+
 Route::get('/infografis', fn() => view('landing.infographics', ['infographics' => Infographic::all(), 'subjects' => Subject::all()]))->name('landing.infographics');
 Route::get('/data-dan-dokumen/pendidikan/sub1', fn() => view('landing.documents', ['documents' => Document::all()]))->name('landing.documents');
 
@@ -412,6 +414,19 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     'destroy' => 'videos.destroy',
   ]);
 
+  Route::resource('photos', PhotoController::class)->names([
+    'index' => 'photos.index',
+    'create' => 'photos.create',
+    'store' => 'photos.store',
+    'show' => 'photos.show',
+    'edit' => 'photos.edit',
+    'update' => 'photos.update',
+    'destroy' => 'photos.destroy',
+  ]);
+
+  Route::put('/photos/{id}/verify', [PhotoController::class, 'verify'])->name('photos.verify')->middleware(SuperAdminMiddleware::class);
+
+
   Route::put('/videos/{id}/verify', [VideoController::class, 'verify'])->name('videos.verify')->middleware(SuperAdminMiddleware::class);
 
   Route::prefix('/feedbacks')->controller(FeedbackController::class)->group(function () {
@@ -422,3 +437,7 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::put('/read', 'read')->name('feedbacks.markRead');
   });
 });
+
+Route::get('/{any}', [MenuController::class, 'dinamicView'])
+  ->where('any', '.*')
+  ->name('dinamic.view');
