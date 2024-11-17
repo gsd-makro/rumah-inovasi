@@ -26,7 +26,7 @@
                     <div class="mb-3">
                         <label for="menuContentType" class="form-label">Tipe Konten</label>
                         <select name="content_type" class="form-select" id="menuContentType">
-                            @php $contentTypes = ['infographic', 'document', 'policy brief' ,'video', 'foto']; @endphp
+                            @php $contentTypes = ['khusus','infographic', 'document', 'policy brief' ,'video', 'foto']; @endphp
                             <option value="" selected>Pilih tipe konten</option>
                             @foreach ($contentTypes as $contentType)
                                 <option value="{{ $contentType }}"

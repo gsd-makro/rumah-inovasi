@@ -22,6 +22,7 @@
                         <label for="menuContentType" class="form-label">Tipe Konten</label>
                         <select name="content_type" class="form-select" id="menuContentType">
                             <option value="" selected>Pilih tipe konten</option>
+                            <option value="khusus">Khusus</option>
                             <option value="infographic">Infografis</option>
                             <option value="document">Dokumen</option>
                             <option value="policy brief">Policy Brief</option>
