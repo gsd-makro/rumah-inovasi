@@ -88,7 +88,11 @@
             <li class="sidebar-item {{ Request::route()->named('feedbacks.*') ? 'active' : '' }}">
                 <a href="{{ route('feedbacks.index') }}" class="sidebar-link">
                     <i class="bi bi-envelope"></i>
-                    <span>Feedback <span class="badge bg-danger">{{ $totalFeedbacks }}</span></span>
+                    <span>Feedback
+                        @if ($totalFeedbacks > 0)
+                            <span class="badge bg-danger">{{ $totalFeedbacks }}</span>
+                        @endif
+                    </span>
                 </a>
             </li>
             <li class="sidebar-item {{ Request::route()->named('users.*') ? 'active' : '' }}">

@@ -58,6 +58,7 @@ class InfographicController extends Controller
                 'user_id' => Auth::user()->id,
                 'title' => $validated['title'],
                 'image' => $path,
+                'menu_id' => 5,
             ]);
 
             $infographic->indicators()->attach($validated['indicators']);
@@ -115,6 +116,7 @@ class InfographicController extends Controller
             }
 
             $infographic->title = $validated['title'];
+            $infographic->menu_id = 5;
             $infographic->save();
             $infographic->indicators()->sync($validated['indicators']);
 
