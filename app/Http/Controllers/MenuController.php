@@ -6,6 +6,7 @@ use App\Models\Document;
 use App\Models\Indicator;
 use App\Models\Infographic;
 use App\Models\Menu;
+use App\Models\Photo;
 use App\Models\Subject;
 use App\Models\Video;
 use Exception;
@@ -280,7 +281,7 @@ class MenuController extends Controller
 		if ($currentMenu->content_type === 'video') {
 			$videos = Video::where('menu_id', $currentMenu->id)->where('status', 'approved')->get();
 			$view = 'landing.videos';
-
+			dd($videos);
 			return view($view, [
 				'currentMenu' => $currentMenu,
 				'videos' => $videos,
@@ -288,12 +289,12 @@ class MenuController extends Controller
 		}
 
 		if ($currentMenu->content_type === 'foto') {
-			$videos = Video::where('menu_id', $currentMenu->id)->where('status', 'approved')->get();
+			$photos = Photo::where('menu_id', $currentMenu->id)->where('status', 'approved')->get();
 			$view = 'landing.fotos';
-
+			dd($photos);
 			return view($view, [
 				'currentMenu' => $currentMenu,
-				'videos' => $videos,
+				'photos' => $photos,
 			]);
 		}
 

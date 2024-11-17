@@ -1,13 +1,13 @@
 @extends('layouts.dashboard')
-@section('title', 'Infografik > Edit Data')
-@section('subtitle', 'Infografik.')
+@section('title', 'Foto > Edit Data')
+@section('subtitle', 'Foto.')
 @section('main')
     <section class="section">
         <div class="card">
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="card-header">
-                        <h4 class="card-title">Upload Infografik</h4>
+                        <h4 class="card-title">Upload Foto</h4>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('photos.update', $photo->id) }}" method="POST" enctype="multipart/form-data">
@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <label for="title">Judul</label>
                                 <input type="text" value="{{ $photo->title }}" class="form-control" id="title"
-                                    name="title" placeholder="Masukkan judul infografik" required>
+                                    name="title" placeholder="Masukkan judul foto" required>
                             </div>
                             <div class="form-group">
                                 <label for="image">Gambar</label>

@@ -14,7 +14,11 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        $documents = Auth::user()->role === 'superadmin' ? Document::all() : Document::where('user_id', Auth::user()->id)->get();
+        $documents = Document::whereDoesntHave('indicators');
+        if (Auth::user()->role !== 'superadmin') {
+            $documents->where('user_id', Auth::user()->id);
+        }
+        $documents = $documents->get();
         $menus = Menu::WhereDoesntHave('children')->where('is_active', true)->get();
         return view('dashboard.documents.index', [
             'documents' => $documents,

@@ -70,6 +70,12 @@
                     </a>
                 </li>
 
+                <li class="submenu-item {{ Request::route()->named('policy_briefs.*') ? 'active' : '' }}">
+                    <a href="{{ route('policy_briefs.index') }}" class="submenu-link">
+                        <span>Policy Briefs</span>
+                    </a>
+                </li>
+
                 <li class="submenu-item {{ Request::route()->named('documents.*') ? 'active' : '' }}">
                     <a href="{{ route('documents.index') }}" class="submenu-link">
                         <span>Document</span>
