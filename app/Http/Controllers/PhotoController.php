@@ -50,7 +50,7 @@ class PhotoController extends Controller
 
             Photo::create([
                 'user_id' => Auth::user()->id,
-                'menu_id' => 41,
+                'menu_id' => 17,
                 'title' => $validated['title'],
                 'file_path' => $validated['filepond']
             ]);
@@ -92,7 +92,7 @@ class PhotoController extends Controller
             }
 
             $photo->title = $validated['title'];
-            $photo->menu_id = 41;
+            $photo->menu_id = 17;
             $photo->save();
             return redirect()->route('photos.index')->with('success', 'Foto berhasil diperbarui');
         } catch (Exception $e) {

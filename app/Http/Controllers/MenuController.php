@@ -232,7 +232,7 @@ class MenuController extends Controller
 
 			if ($indicatorId) {
 				$query->whereHas('indicators', function ($q) use ($indicatorId) {
-					$q->where('id', $indicatorId);
+					$q->where('indicators.id', $indicatorId);
 				});
 			}
 
@@ -290,7 +290,7 @@ class MenuController extends Controller
 			]);
 		}
 
-		if ($currentMenu->content_type === 'foto') {
+		if ($currentMenu->content_type === 'photo') {
 			$photos = Photo::where('menu_id', $currentMenu->id)->where('status', 'approved')->get();
 			$view = 'landing.fotos';
 			dd($photos);

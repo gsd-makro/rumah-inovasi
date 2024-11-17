@@ -66,7 +66,7 @@ class PolicyBriefController extends Controller
                 'user_id' => Auth::user()->id,
                 'title' => $validated['title'],
                 'file_path' => $path,
-                'menu_id' => 45,
+                'menu_id' => 6,
             ]);
 
             $policy_brief->indicators()->attach($validated['indicators']);
@@ -124,6 +124,7 @@ class PolicyBriefController extends Controller
             }
 
             $policy_brief->title = $validated['title'];
+            $policy_brief->menu_id = 6;
             $policy_brief->save();
             $policy_brief->indicators()->sync($validated['indicators']);
 
