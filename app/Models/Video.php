@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cohensive\OEmbed\Facades\OEmbed;
 use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model

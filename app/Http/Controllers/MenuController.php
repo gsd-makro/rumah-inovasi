@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\Feedback;
 use App\Models\Indicator;
 use App\Models\Infographic;
 use App\Models\Menu;
@@ -249,6 +250,7 @@ class MenuController extends Controller
 		if ($currentMenu->content_type === 'policy brief') {
 			$indicatorId = $request->get('indicator_id');
 			$query = Document::where('menu_id', $currentMenu->id)
+				->whereHas('indicators')
 				->where('status', 'approved');
 
 			if ($indicatorId) {
@@ -295,6 +297,15 @@ class MenuController extends Controller
 			return view($view, [
 				'currentMenu' => $currentMenu,
 				'photos' => $photos,
+			]);
+		}
+
+		if ($currentMenu->content_type === 'khusus' && $currentMenu->slug === 'hubungi-kami') {
+			$view = 'landing.contact';
+			$feedback = Feedback::where('is_approved', true)->get();
+			dd($feedback);
+			return view($view, [
+				'currentMenu' => $currentMenu,
 			]);
 		}
 

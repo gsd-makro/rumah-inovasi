@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use App\Models\Video;
+use Cohensive\OEmbed\Facades\OEmbed;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,23 @@ class VideoController extends Controller
     {
         $videos = Auth::user()->role === 'superadmin' ? Video::all() : Video::where('user_id', Auth::user()->id)->get();
         $menus = Menu::WhereDoesntHave('children')->where('is_active', true)->get();
+
+        // Proses setiap video untuk mendapatkan embed HTML
+        foreach ($videos as $video) {
+            if ($video->link_path) {
+                $embed = OEmbed::get($video->link_path);
+                if ($embed) {
+                    // Tambahkan property embed_html ke setiap video object
+                    $video->embed_html = $embed->html([
+                        'width' => 770,  // Sesuaikan ukuran yang diinginkan
+                        'height' => 500
+                    ]);
+                } else {
+                    $video->embed_html = null;
+                }
+            }
+        }
+
         return view('dashboard.videos.index', [
             'videos' => $videos,
             'menus' => $menus

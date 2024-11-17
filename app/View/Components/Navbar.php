@@ -21,7 +21,9 @@ class Navbar extends Component
 		$this->menus = Cache::remember('menus', 60, function () {
 			return Menu::where('parent_id', null)
 				->where('is_active', true)
-				->with('children')
+				->with(['children' => function ($query) {
+					$query->where('is_active', true);
+				}])
 				->orderBy('order')
 				->get();
 		});

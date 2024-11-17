@@ -34,9 +34,13 @@
                             <tr>
                                 <td class="text-bold-500">{{ $key + 1 }}</td>
                                 <td class="text-bold-500">
-                                    <div>
-                                        <strong>{{ $document->title }}</strong><br>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="">
+                                            <img src="{{ asset('img/logo-pdf.png') }}" class="img-thumbnail" alt="pdf"
+                                                loading="lazy" style="width: 50px; height: auto;">
+                                        </div>
                                         <div>
+                                            <strong>{{ $document->title }}</strong><br>
                                             @if ($document->status == 'pending')
                                                 <span class="badge bg-secondary">Menunggu</span>
                                             @elseif ($document->status == 'approved')
@@ -45,6 +49,8 @@
                                                 <span class="badge bg-danger">Ditolak</span>
                                             @endif
                                         </div>
+                                    </div>
+                                    <div>
                                         <span class="text-muted small">
                                             Dibuat oleh: {{ $document->user->name }} pada
                                             {{ $document->created_at->translatedFormat('d F Y') }}
@@ -85,6 +91,7 @@
     <script>
         new DataTable('#table1');
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js"></script>
     @if (session('success'))
         <script>
             Swal.fire({

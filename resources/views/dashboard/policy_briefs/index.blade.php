@@ -23,8 +23,8 @@
                         <thead>
                             <tr>
                                 <th width="10%">No</th>
-                                <th width="70%">Judul</th>
-                                <th width="20%">Aksi</th>
+                                <th width="60%">Judul</th>
+                                <th width="30%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,7 +32,11 @@
                                 <tr>
                                     <td class="text-bold-500">{{ $key + 1 }}</td>
                                     <td>
-                                        <div class="d-flex align-items-start">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <div class="">
+                                                <img src="{{ asset('img/logo-pdf.png') }}" class="img-thumbnail"
+                                                    alt="pdf" loading="lazy" style="width: 50px; height: auto;">
+                                            </div>
                                             <div>
                                                 <strong>{{ $policy_brief->title }}</strong><br>
                                                 <div>
@@ -44,12 +48,13 @@
                                                         <span class="badge bg-danger">Ditolak</span>
                                                     @endif
                                                 </div>
-                                                <span class="text-muted small">
-                                                    Dibuat oleh: {{ $policy_brief->user->name }} pada
-                                                    {{ $policy_brief->created_at->translatedFormat('d F Y') }}
-                                                </span>
+
                                             </div>
                                         </div>
+                                        <span class="text-muted small">
+                                            Dibuat oleh: {{ $policy_brief->user->name }} pada
+                                            {{ $policy_brief->created_at->translatedFormat('d F Y') }}
+                                        </span>
                                     </td>
                                     <td>
                                         @if (auth()->user()->role == 'superadmin')
@@ -57,6 +62,10 @@
                                                 data-bs-target="#verify" onclick="openVerifyModal({{ $policy_brief }})"><i
                                                     class="bi bi-file-check"></i></button>
                                         @endif
+                                        <a target="#blank" href="{{ url('storage/' . $policy_brief->file_path) }}"
+                                            class="btn btn-primary">
+                                            <i class="bi bi-download"></i>
+                                        </a>
                                         <a href="{{ route('policy_briefs.edit', $policy_brief->id) }}"
                                             class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                                         <button class="btn btn-danger" type="button" data-bs-toggle="modal"

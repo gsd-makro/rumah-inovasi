@@ -33,10 +33,13 @@
                                     <td class="text-bold-500">{{ $key + 1 }}</td>
                                     <td>
                                         <div class="d-flex align-items-start">
-                                            <img src="{{ asset('storage/' . $infographic->image) }}"
-                                                alt="{{ $infographic->title }}" class="img-thumbnail me-3" loading="lazy"
-                                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
-
+                                            <div class="image-thumbnail-container">
+                                                <img src="{{ asset('storage/' . $infographic->image) }}"
+                                                    alt="{{ $infographic->title }}"
+                                                    class="img-thumbnail me-3 image-thumbnail" loading="lazy"
+                                                    style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;"
+                                                    onclick="openImageModal('{{ asset('storage/' . $infographic->image) }}')">
+                                            </div>
                                             <div>
                                                 <strong>{{ $infographic->title }}</strong><br>
                                                 <div>
@@ -54,6 +57,7 @@
                                                 </span>
                                             </div>
                                         </div>
+
                                     </td>
                                     <td>
                                         @if (auth()->user()->role == 'superadmin')
@@ -75,13 +79,67 @@
             </div>
         </div>
     </section>
+
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img id="fullImage" src="" alt="Full Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('styles')
+    <style>
+        .image-thumbnail-container {
+            position: relative;
+        }
+
+        .image-thumbnail {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .image-thumbnail:hover {
+            opacity: 0.7;
+            transform: scale(1.05);
+            filter: brightness(0.7);
+        }
+
+        .image-thumbnail-container::after {
+            content: '🔍';
+            /* Menambahkan icon mata untuk memberi tahu pengguna */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: white;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .image-thumbnail-container:hover::after {
+            opacity: 1;
+        }
+    </style>
+@endpush
 
 @push('scripts')
     <script>
         $(document).ready(function() {
             $('#table1').DataTable();
         });
+
+        function openImageModal(imageUrl) {
+            $('#fullImage').attr('src', imageUrl);
+            $('#imageModal').modal('show');
+        }
     </script>
 
     @if (session('success'))
