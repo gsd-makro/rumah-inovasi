@@ -17,4 +17,9 @@ class Document extends Model
     {
         return $this->belongsTo(Menu::class);
     }
+
+    public function indicators()
+    {
+        return $this->belongsToMany(Indicator::class, 'pivot_documents_indicators');
+    }
 }

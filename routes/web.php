@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PolicyBriefController;
 use App\Http\Controllers\VideoController;
 use App\Http\Middleware\SuperAdminMiddleware;
 use App\Models\Document;
@@ -391,6 +392,18 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
   ]);
 
   Route::put('/infographics/{id}/verify', [InfographicController::class, 'verify'])->name('infographics.verify')->middleware(SuperAdminMiddleware::class);
+
+  Route::resource('policy-briefs', PolicyBriefController::class)->names([
+    'index' => 'policy_briefs.index',
+    'create' => 'policy_briefs.create',
+    'store' => 'policy_briefs.store',
+    'show' => 'policy_briefs.show',
+    'edit' => 'policy_briefs.edit',
+    'update' => 'policy_briefs.update',
+    'destroy' => 'policy_briefs.destroy',
+  ]);
+
+  Route::put('/policy-briefs/{id}/verify', [PolicyBriefController::class, 'verify'])->name('policy_briefs.verify')->middleware(SuperAdminMiddleware::class);
 
   Route::resource('documents', DocumentController::class)->names([
     'index' => 'documents.index',

@@ -62,7 +62,7 @@ class InfographicController extends Controller
 
             $infographic->indicators()->attach($validated['indicators']);
 
-            return redirect()->route('infographics.index')->with('success', 'Infographic created successfully');
+            return redirect()->route('infographics.index')->with('success', 'Infografis berhasil dibuat');
         } catch (Exception $e) {
             return redirect()->route('infographics.create')->with('error', 'Infografis gagal dibuat, periksa kembali inputan Anda');
         }

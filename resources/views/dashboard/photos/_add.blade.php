@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label for="title">Judul</label>
                         <input type="text" class="form-control" id="title" name="title"
-                            placeholder="Masukkan judul infografik" required>
+                            placeholder="Masukkan judul foto" required>
                     </div>
                     <div class="form-group">
                         <label for="image">Gambar</label>
