@@ -13,10 +13,6 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PolicyBriefController;
 use App\Http\Controllers\VideoController;
 use App\Http\Middleware\SuperAdminMiddleware;
-use App\Models\Document;
-use App\Models\Infographic;
-use App\Models\Subject;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

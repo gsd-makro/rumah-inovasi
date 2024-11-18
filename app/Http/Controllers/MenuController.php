@@ -300,7 +300,6 @@ class MenuController extends Controller
     if ($currentMenu->content_type === 'khusus' && $currentMenu->slug === 'hubungi-kami') {
       $view = 'landing.contact';
       $feedback = Feedback::where('is_approved', true)->get();
-      dd($feedback);
       return view($view, [
         'currentMenu' => $currentMenu,
       ]);
