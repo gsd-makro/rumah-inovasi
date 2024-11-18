@@ -98,7 +98,7 @@
                                                 <h6 class="text-muted font-semibold">
                                                     Infografis
                                                 </h6>
-                                                <h6 class="font-extrabold mb-0">21</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['infografis'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Foto</h6>
-                                                <h6 class="font-extrabold mb-0">18</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['foto'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Video</h6>
-                                                <h6 class="font-extrabold mb-0">18</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['video'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +152,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Dokumen</h6>
-                                                <h6 class="font-extrabold mb-0">8</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['dokumen'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Policy Brief</h6>
-                                                <h6 class="font-extrabold mb-0">8</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['policy_brief'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -188,7 +188,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Berita</h6>
-                                                <h6 class="font-extrabold mb-0">12</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['berita'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -206,7 +206,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">User Aktif</h6>
-                                                <h6 class="font-extrabold mb-0">28</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['user_aktif'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -224,7 +224,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Subjek</h6>
-                                                <h6 class="font-extrabold mb-0">28</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['subjek'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +242,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Indikator</h6>
-                                                <h6 class="font-extrabold mb-0">28</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['indikator'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -260,7 +260,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Feedback</h6>
-                                                <h6 class="font-extrabold mb-0">28</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['feedback'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -279,7 +279,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-12 col-xl-10">
                                 <div class="card">
                                     <div class="card-header">
@@ -366,7 +366,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-12 col-lg-3">
                         <div class="card">
@@ -391,8 +391,7 @@
                                         <img src="{{ asset('/compiled/jpg/4.jpg') }}" />
                                     </div>
                                     <div class="name ms-4">
-                                        <h5 class="mb-1">Hank Schrader</h5>
-                                        <h6 class="text-muted mb-0">@johnducky</h6>
+                                        <h5 class="mb-1">{{ $top_admin[0] ?? 'johndoe' }}</h5>
                                     </div>
                                 </div>
                                 <div class="recent-message d-flex px-4 py-3">
@@ -400,8 +399,7 @@
                                         <img src="{{ asset('/compiled/jpg/5.jpg') }}" />
                                     </div>
                                     <div class="name ms-4">
-                                        <h5 class="mb-1">Dean Winchester</h5>
-                                        <h6 class="text-muted mb-0">@imdean</h6>
+                                        <h5 class="mb-1">{{ $top_admin[1] ?? 'johndoe' }}</h5>
                                     </div>
                                 </div>
                                 <div class="recent-message d-flex px-4 py-3">
@@ -409,8 +407,7 @@
                                         <img src="{{ asset('/compiled/jpg/1.jpg') }}" />
                                     </div>
                                     <div class="name ms-4">
-                                        <h5 class="mb-1">John Dodol</h5>
-                                        <h6 class="text-muted mb-0">@dodoljohn</h6>
+                                        <h5 class="mb-1">{{ $top_admin[2] ?? 'jhondoe' }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -427,20 +424,7 @@
                 </section>
             </div>
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2023 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>
-                            Crafted with
-                            <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                            by <a href="https://saugi.me">Saugi</a>
-                        </p>
-                    </div>
-                </div>
-            </footer>
+
         </div>
     </div>
 

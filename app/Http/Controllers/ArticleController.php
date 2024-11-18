@@ -8,14 +8,15 @@ use App\Models\Article;
 use App\Models\User;
 use App\Models\Subject;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::all();
+        $articles = Auth::user()->role == 'superadmin' ? Article::all() : Article::where('user_id', Auth::user()->id)->get();
         return view('dashboard.articles.index', compact('articles'));
-    }  
+    }
 
     public function create()
     {
@@ -47,10 +48,9 @@ class ArticleController extends Controller
 
             $article = Article::create($validated);
 
-            return redirect()->route('articles.index');
-
-        }catch(Exception $e) {
-            return $e;
+            return redirect()->route('articles.index')->with('success', 'Artikel berhasil dibuat');
+        } catch (Exception $e) {
+            return redirect()->route('articles.index')->with('error', 'Artikel gagal dibuat');
         }
     }
 
@@ -61,11 +61,12 @@ class ArticleController extends Controller
     }
 
 
-    public function edit(Request $request, string $id)
+    public function edit(string $id)
     {
         $article = Article::find($id);
         $subjects = Subject::all();
-        return view('dashboard.articles.edit', 
+        return view(
+            'dashboard.articles.edit',
             [
                 'article' => $article,
                 'subjects' => $subjects
@@ -79,7 +80,6 @@ class ArticleController extends Controller
             $validated = $request->validate([
                 'title' => 'required|string',
                 'content' => 'required|string',
-                // 'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'subject_id' => 'required|integer',
             ]);
 
@@ -90,6 +90,9 @@ class ArticleController extends Controller
             $validated['user_id'] = Auth::user()->id;
 
             if ($request->hasFile('image')) {
+                if ($article->image) {
+                    Storage::disk('public')->delete($article->image);
+                }
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $path = $image->storeAs('articles', $imageName, 'public');
@@ -97,13 +100,10 @@ class ArticleController extends Controller
                 $validated['image'] = $path;
             }
 
-            // dd($article);
-
             $article->update($validated);
 
-            return redirect()->route('articles.index');
-
-        }catch(Exception $e) {
+            return redirect()->route('articles.index')->with('success', 'Artikel berhasil diupdate');
+        } catch (Exception $e) {
             return $e;
         }
     }
@@ -112,13 +112,13 @@ class ArticleController extends Controller
     {
         try {
             $article = Article::findOrFail($id);
-            if ($article->file_path) {
+            if ($article->image) {
                 Storage::disk('public')->delete($article->image);
             }
             $article->delete();
-            return redirect()->route('articles.index')->with('success', 'Dokumen berhasil dihapus');
+            return redirect()->route('articles.index')->with('success', 'Artikel berhasil dihapus');
         } catch (Exception $e) {
-            return redirect()->route('articles.index')->with('error', 'Dokumen gagal dihapus');
+            return redirect()->route('articles.index')->with('error', 'Artikel gagal dihapus');
         }
     }
 

@@ -378,7 +378,7 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     'edit' => 'articles.edit',
     'update' => 'articles.update',
     'destroy' => 'articles.destroy',
-  ])->middleware(SuperAdminMiddleware::class);
+  ]);
 
   Route::put('/articles/{id}/verify', [ArticleController::class, 'verify'])->name('articles.verify')->middleware(SuperAdminMiddleware::class);
 

@@ -17,7 +17,7 @@
                     </a>
                     {{-- @include('dashboard.documents._add') --}}
                     {{-- @include('dashboard.documents._edit') --}}
-                    @include('dashboard.articles._delete') 
+                    @include('dashboard.articles._delete')
                     @include('dashboard.articles._verify')
                 </div>
             </div>
@@ -37,14 +37,17 @@
                                 <td class="text-bold-500">{{ $key + 1 }}</td>
                                 <td class="text-bold-500">
                                     <div class="d-flex align-items-center gap-3">
-                                        {{$article->title}}
-                                        @if ($article->status == 'pending')
+                                        <div>
+                                            <strong>{{ $article->title }}
+                                            </strong><br>
+                                            @if ($article->status == 'pending')
                                                 <span class="badge bg-secondary">Menunggu</span>
                                             @elseif ($article->status == 'approved')
                                                 <span class="badge bg-success">Disetujui</span>
                                             @elseif ($article->status == 'rejected')
                                                 <span class="badge bg-danger">Ditolak</span>
                                             @endif
+                                        </div>
                                     </div>
                                     <div>
                                         <span class="text-muted small">
@@ -56,14 +59,14 @@
                                 <td class="text-bold-500">{{ $article->subject->name }}</td>
                                 {{-- <td class="text-bold-500">{!! $article->content !!} --}}
                                 </td>
-                                <td>                                   
+                                <td>
                                     @if (auth()->user()->role == 'superadmin')
                                         <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                             data-bs-target="#verify" onclick="openVerifyModal({{ $article }})"><i
                                                 class="bi bi-file-check"></i></button>
                                     @endif
                                     <a href="{{ route('articles.edit', $article->id) }}">
-                                        <button class="btn btn-warning" type="button" >
+                                        <button class="btn btn-warning" type="button">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </a>
