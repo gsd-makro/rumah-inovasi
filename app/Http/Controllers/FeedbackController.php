@@ -13,6 +13,21 @@ class FeedbackController extends Controller
         return view('dashboard.feedbacks.index', ['feedbacks' => $feedbacks]);
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'rating' => 'required|numeric|min:1|max:5',
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'job_type' => 'required|string|in: mahasiswa, ASN, Swasta, TNI/Polri, Masyarakat Umum',
+            'feedback' => 'required|string',
+            'tags' => 'required|in: infografis, policy brief, video, artikel, dokumen, galeri',
+        ]);
+
+        Feedback::create($validated);
+        return view('landing.contact')->with('success', 'Feedback berhasil dikirim');
+    }
+
     public function approve(Request $request)
     {
         $feedback = Feedback::find($request->id);

@@ -10,6 +10,7 @@ use App\Models\Menu;
 use App\Models\Photo;
 use App\Models\Subject;
 use App\Models\Video;
+use Cohensive\OEmbed\Facades\OEmbed;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -225,10 +226,15 @@ class MenuController extends Controller
     // Setelah mendapatkan menu yang benar, proses konten
     $subjects = Subject::with('indicators')->get();
     $indicatorId = $request->get('indicator_id');
+    $search = $request->get('search');
     if ($currentMenu->content_type === 'infographic') {
       $query = Infographic::where('menu_id', $currentMenu->id)
         ->whereHas('indicators')
         ->where('status', 'approved');
+
+      if ($search) {
+        $query->where('title', 'like', '%' . $search . '%');
+      }
 
       if ($indicatorId) {
         $query->whereHas('indicators', function ($q) use ($indicatorId) {
@@ -236,7 +242,7 @@ class MenuController extends Controller
         });
       }
 
-      $infographics = $query->get();
+      $infographics = $query->paginate(8);
       $view = 'landing.infographics';
 
       return view($view, [
@@ -251,13 +257,17 @@ class MenuController extends Controller
         ->whereHas('indicators')
         ->where('status', 'approved');
 
+
+      if ($search) {
+        $query->where('title', 'like', '%' . $search . '%');
+      }
       if ($indicatorId) {
         $query->whereHas('indicators', function ($q) use ($indicatorId) {
           $q->where('indicators.id', $indicatorId);
         });
       }
 
-      $policyBriefs = $query->get();
+      $policyBriefs = $query->paginate(8);
       $view = 'landing.policy_briefs';
 
       return view($view, [
@@ -279,8 +289,20 @@ class MenuController extends Controller
 
     if ($currentMenu->content_type === 'video') {
       $videos = Video::where('menu_id', $currentMenu->id)->where('status', 'approved')->get();
+      foreach ($videos as $video) {
+        if ($video->link_path) {
+          $embed = OEmbed::get($video->link_path);
+          if ($embed) {
+            $video->embed_html = $embed->html([
+              'width' => 300,
+              'height' => 300
+            ]);
+          } else {
+            $video->embed_html = null;
+          }
+        }
+      }
       $view = 'landing.videos';
-      dd($videos);
       return view($view, [
         'currentMenu' => $currentMenu,
         'videos' => $videos,
