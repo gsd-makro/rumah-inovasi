@@ -1,5 +1,5 @@
 <div class="rating" id="{{ $id ?? 'rating' }}">
-  <input type="range" min="0" max="5" value="0" name="{{ $name || '' }}" />
+  <input type="range" min="0" max="5" value="0" name="{{ $name ?? '' }}" />
   <div class="stars">
     <label class="" data-value="1">
       <i class="far fa-star"></i>

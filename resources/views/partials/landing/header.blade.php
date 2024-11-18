@@ -1169,4 +1169,5 @@
   <link rel="icon" href="https://bapppeda.gorontaloprov.go.id/img/pavicon.png" sizes="192x192" />
   <link rel="apple-touch-icon" href="https://bapppeda.gorontaloprov.go.id/img/pavicon.png" />
   <meta name="msapplication-TileImage" content="https://bapppeda.gorontaloprov.go.id/img/pavicon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
