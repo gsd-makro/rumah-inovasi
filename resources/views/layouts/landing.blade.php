@@ -30,8 +30,7 @@
               </div>
             </div>
             <div class="top-bar-right col-2">
-              <div class="aft-small-social-menu">
-              </div>
+              <div class="aft-small-social-menu"></div>
             </div>
           </div>
         </div>
@@ -60,7 +59,7 @@
               <div class="banner-promotions-wrapper">
                 <div class="promotion-section">
                   <a href="" target="_blank">
-                    <img width="1280" height="426" src="https://dummyimage.com/1280x426.jpg?text=Banner"
+                    <img width="1280" height="426" src="{{ asset('/static/images/banner.jpg') }}"
                       class="attachment-full size-full" alt="" />
                   </a>
                 </div>

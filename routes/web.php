@@ -13,10 +13,6 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PolicyBriefController;
 use App\Http\Controllers\VideoController;
 use App\Http\Middleware\SuperAdminMiddleware;
-use App\Models\Document;
-use App\Models\Infographic;
-use App\Models\Subject;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -319,17 +315,8 @@ Route::get('/', function () {
     ],
   ];
 
-  return view('landing.home', [
-    'breaking' => $breaking,
-    'carousel' => $carousel,
-    'popular' => $popular,
-    'national' => $national,
-    'international' => $international,
-  ]);
+  return view('landing.home', compact('breaking', 'carousel', 'popular', 'national', 'international'));
 })->name('landing.home');
-
-Route::get('/infografis', fn() => view('landing.infographics', ['infographics' => Infographic::all(), 'subjects' => Subject::all()]))->name('landing.infographics');
-Route::get('/data-dan-dokumen/pendidikan/sub1', fn() => view('landing.documents', ['documents' => Document::all()]))->name('landing.documents');
 
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
   Route::get('/login', 'index')->name('login');
