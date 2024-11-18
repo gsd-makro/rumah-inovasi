@@ -438,6 +438,8 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
   });
 });
 
+Route::post('/feedbacks', [FeedbackController::class, 'store'])->name('feedbacks.store');
+
 Route::get('/{any}', [MenuController::class, 'dinamicView'])
   ->where('any', '.*')
   ->name('dinamic.view');
