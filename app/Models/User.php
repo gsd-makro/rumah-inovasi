@@ -42,12 +42,28 @@ class User extends Authenticatable
         ];
     }
 
-    public function document(){
+    public function document()
+    {
         return $this->hasMany(Document::class);
     }
 
     public function article()
     {
         return $this->hasMany(Article::class);
+    }
+
+    public function infographic()
+    {
+        return $this->hasMany(Infographic::class);
+    }
+
+    public function photo()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+    public function video()
+    {
+        return $this->hasMany(Video::class);
     }
 }

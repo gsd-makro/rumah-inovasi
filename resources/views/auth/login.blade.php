@@ -32,6 +32,13 @@
 
                     <form action="{{ route('authenticate') }}" method="POST">
                         @csrf
+                        <div>
+                            @if (session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                        </div>
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="email" name="email" class="form-control form-control-xl"
                                 placeholder="Email">

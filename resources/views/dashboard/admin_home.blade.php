@@ -98,7 +98,7 @@
                                                 <h6 class="text-muted font-semibold">
                                                     Infografis
                                                 </h6>
-                                                <h6 class="font-extrabold mb-0">21</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['infografis'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Foto</h6>
-                                                <h6 class="font-extrabold mb-0">18</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['foto'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Video</h6>
-                                                <h6 class="font-extrabold mb-0">18</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['video'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +152,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Dokumen</h6>
-                                                <h6 class="font-extrabold mb-0">8</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['dokumen'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Policy Brief</h6>
-                                                <h6 class="font-extrabold mb-0">8</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['policy_brief'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -188,7 +188,7 @@
                                             </div>
                                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                                 <h6 class="text-muted font-semibold">Berita</h6>
-                                                <h6 class="font-extrabold mb-0">12</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $dataCounts['berita'] }}</h6>
                                             </div>
                                         </div>
                                     </div>
