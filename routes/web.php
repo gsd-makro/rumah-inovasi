@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PolicyBriefController;
 use App\Http\Controllers\VideoController;
 use App\Http\Middleware\SuperAdminMiddleware;
@@ -367,6 +368,20 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     'update' => 'indicators.update',
     'destroy' => 'indicators.destroy',
   ])->middleware(SuperAdminMiddleware::class);
+
+
+  Route::resource('articles', ArticleController::class)->names([
+    'index' => 'articles.index',
+    'create' => 'articles.create',
+    'store' => 'articles.store',
+    'show' => 'articles.show',
+    'edit' => 'articles.edit',
+    'update' => 'articles.update',
+    'destroy' => 'articles.destroy',
+  ])->middleware(SuperAdminMiddleware::class);
+
+  Route::put('/articles/{id}/verify', [ArticleController::class, 'verify'])->name('articles.verify')->middleware(SuperAdminMiddleware::class);
+
 
   Route::resource('infographics', InfographicController::class)->names([
     'index' => 'infographics.index',

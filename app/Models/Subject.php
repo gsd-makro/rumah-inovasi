@@ -12,4 +12,8 @@ class Subject extends Model
     {
         return $this->hasMany(Indicator::class);
     }
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
 }
