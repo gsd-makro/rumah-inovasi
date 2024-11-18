@@ -64,6 +64,12 @@
                     </a>
                 </li>
 
+                <li class="submenu-item {{ Request::route()->named('articles.*') ? 'active' : '' }}">
+                    <a href="{{ route('articles.index') }}" class="submenu-link">
+                        <span>Artikel</span>
+                    </a>
+                </li>
+
                 <li class="submenu-item {{ Request::route()->named('videos.*') ? 'active' : '' }}">
                     <a href="{{ route('videos.index') }}" class="submenu-link">
                         <span>Video</span>
