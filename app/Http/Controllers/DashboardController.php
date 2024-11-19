@@ -20,6 +20,7 @@ class DashboardController extends Controller
     public function index()
     {
         if (Auth::user()->role === 'superadmin') {
+
             $dataCounts = Cache::remember('super_admin_data_count', now()->addMinute(30), function () {
                 return [
                     'infografis' => Infographic::count(),
@@ -53,9 +54,61 @@ class DashboardController extends Controller
                     ->take(3)
                     ->pluck('name');
             });
+
+            $dataCharts = Cache::remember('super_admin_data_chart', now()->addMinute(30), function () {
+                // Mengambil data untuk 30 hari terakhir
+                $startDate = now()->subDays(30)->startOfDay();
+                $endDate = now()->endOfDay();
+
+                // Membuat array tanggal untuk 30 hari terakhir
+                $dates = collect();
+                for ($date = $startDate->copy(); $date <= $endDate; $date->addDay()) {
+                    $dates->push($date->format('Y-m-d'));
+                }
+
+                // Fungsi untuk mendapatkan data dengan tanggal yang terisi 0 jika tidak ada data
+                $getDataWithEmptyDates = function ($query) use ($dates) {
+                    $data = $query->pluck('aggregate', 'date');
+                    return $dates->map(function ($date) use ($data) {
+                        return [
+                            'date' => $date,
+                            'aggregate' => $data->get($date, 0)
+                        ];
+                    });
+                };
+
+                // Query untuk masing-masing model
+                $infographicData = Infographic::selectRaw("DATE(created_at) as date, count(*) as aggregate")
+                    ->whereDate('created_at', '>=', $startDate)
+                    ->groupBy('date')
+                    ->get();
+
+                $photoData = Photo::selectRaw("DATE(created_at) as date, count(*) as aggregate")
+                    ->whereDate('created_at', '>=', $startDate)
+                    ->groupBy('date')
+                    ->get();
+
+                $videoData = Video::selectRaw("DATE(created_at) as date, count(*) as aggregate")
+                    ->whereDate('created_at', '>=', $startDate)
+                    ->groupBy('date')
+                    ->get();
+
+                $documentData = Document::selectRaw("DATE(created_at) as date, count(*) as aggregate")
+                    ->whereDate('created_at', '>=', $startDate)
+                    ->groupBy('date')
+                    ->get();
+
+                // Mengembalikan data dengan format yang sesuai
+                return [
+                    'infographics' => $getDataWithEmptyDates($infographicData),
+                    'photos' => $getDataWithEmptyDates($photoData),
+                    'videos' => $getDataWithEmptyDates($videoData),
+                    'documents' => $getDataWithEmptyDates($documentData),
+                ];
+            });
             return view(
                 'dashboard.superadmin_home',
-                ['dataCounts' => $dataCounts, 'top_admin' => $top_admin]
+                ['dataCounts' => $dataCounts, 'top_admin' => $top_admin, 'dataCharts' => $dataCharts]
             );
         } else {
             $dataCounts = Cache::remember('admin_data_count_' . Auth::id(), now()->addMinute(30), function () {
