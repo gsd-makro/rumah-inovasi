@@ -294,8 +294,8 @@ class MenuController extends Controller
           $embed = OEmbed::get($video->link_path);
           if ($embed) {
             $video->embed_html = $embed->html([
-              'width' => 300,
-              'height' => 300
+              'width' => 200,
+              'height' => 200
             ]);
           } else {
             $video->embed_html = null;
@@ -312,7 +312,6 @@ class MenuController extends Controller
     if ($currentMenu->content_type === 'photo') {
       $photos = Photo::where('menu_id', $currentMenu->id)->where('status', 'approved')->get();
       $view = 'landing.fotos';
-      dd($photos);
       return view($view, [
         'currentMenu' => $currentMenu,
         'photos' => $photos,

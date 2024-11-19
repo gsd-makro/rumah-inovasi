@@ -10,12 +10,16 @@
       display: flex;
     }
 
-    .gallery-item iframe {
+    .gallery-item a {
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-item a img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      margin: auto;
     }
 
     .gallery-item__caption {
@@ -42,7 +46,7 @@
 @endpush
 
 @section('main')
-  <x-breadcrumb :breadcrumbs="[['label' => 'Beranda', 'url' => route('landing.home')], ['label' => 'Video', 'url' => null]]" />
+  <x-breadcrumb :breadcrumbs="[['label' => 'Beranda', 'url' => route('landing.home')], ['label' => 'Galeri', 'url' => null]]" />
 
   <div id="content" class="container-wrapper">
     <div class="section-block-upper">
@@ -50,7 +54,7 @@
         <main id="main" class="site-main">
           <article id="post-853" class="post-853 page type-page status-publish hentry">
             <header class="entry-header">
-              <h1 class="entry-title">Video</h1>
+              <h1 class="entry-title">Galeri</h1>
             </header>
 
             <div class="entry-content-wrap">
@@ -58,11 +62,13 @@
                 <div class="section-wrapper af-widget-body">
                   <div class="gallery"
                     style="margin-bottom: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                    @foreach ($videos as $video)
+                    @foreach ($photos as $photo)
                       <div class="gallery-item">
-                        {!! $video->embed_html !!}
+                        <a href="{{ asset('storage/' . $photo->file_path) }}" data-lightbox="gallery"
+                          data-title="{{ $photo->title }}"><img src="{{ asset('storage/' . $photo->file_path) }}"
+                            alt="{{ $photo->title }}"></a>
 
-                        <h3 class="gallery-item__caption">{{ $video->title }}</h3>
+                        <h3 class="gallery-item__caption">{{ $photo->title }}</h3>
                       </div>
                     @endforeach
                   </div>
