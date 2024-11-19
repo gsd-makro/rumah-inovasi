@@ -49,27 +49,135 @@
     .discussion__body p {
       margin: 0;
     }
+
+    .discussion__footer {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .discussion__tag {
+      padding: .1em .5em;
+      opacity: 0.8;
+      border-radius: 1em;
+      font-size: 0.7rem;
+    }
+
+    .discussion__tag.infografis {
+      background-color: #007bff;
+      color: #ffffff;
+    }
+
+    .discussion__tag.policy-brief {
+      background-color: #28a745;
+      color: #ffffff;
+    }
+
+    .discussion__tag.video {
+      background-color: #ffc107;
+      color: #000000;
+    }
+
+    .discussion__tag.artikel {
+      background-color: #17a2b8;
+      color: #ffffff;
+    }
+
+    .discussion__tag.dokumen {
+      background-color: #dc3545;
+      color: #ffffff;
+    }
+
+    .discussion__tag.galeri {
+      background-color: #6c757d;
+      color: #ffffff;
+    }
+
+    .discussion__tag+.discussion__tag {
+      margin-left: 5px;
+    }
   </style>
 
   <style>
     .button {
+      font-family: inherit !important;
       display: block;
       padding: 10px 20px;
-      background-color: var(--secondary);
-      color: white;
+      background-color: var(--secondary) !important;
+      color: white !important;
       text-decoration: none;
       border-radius: 5px;
       border: 1px solid var(--secondary);
       transition: background-color 0.3s;
       text-align: center;
+      font-weight: normal;
+      text-transform: none !important;
+      height: auto !important;
+      line-height: normal !important;
+      width: 100% !important;
     }
 
     .button:hover,
     .button:focus {
-      color: var(--secondary);
-      background-color: transparent;
+      color: var(--secondary) !important;
+      background-color: transparent !important;
     }
   </style>
+
+  <style>
+    .mb-3 {
+      margin-bottom: 1rem;
+    }
+
+    .form-control {
+      height: 38px;
+      font-family: inherit;
+    }
+
+    .form-text {
+      font-size: 0.875rem;
+      color: #6c757d;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .ml-1 {
+      margin-left: .25rem;
+    }
+
+    .invalid-feedback {
+      color: #dc3545;
+    }
+  </style>
+@endpush
+
+@push('scripts')
+  @session('success')
+    <script>
+      setTimeout(() => {
+        Swal.fire({
+          title: "Good job!",
+          text: "{{ $value }}",
+          icon: "success"
+        });
+      }, 1000);
+    </script>
+  @endsession
+
+  @session('error')
+    <script>
+      setTimeout(() => {
+        Swal.fire({
+          title: "Oops...",
+          text: "{{ $value }}",
+          icon: "error"
+        });
+      }, 1000);
+    </script>
+  @endsession
 @endpush
 
 @section('main')
@@ -82,10 +190,88 @@
           <div id="block-6" class="widget chromenews-widget widget_block">
             <div class="wp-block-group">
               <div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
-                <a class="button" href="#">
-                  <i class="fa fa-question-circle"></i>
-                  Tanyakan Sesuatu
-                </a>
+                <form action="{{ route('feedbacks.store') }}" method="POST">
+                  @csrf
+
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Nama</label>
+                    <input type="text" id="name" name="name" placeholder="Nama Lengkap"
+                      aria-describedby="nameHelp" @class(['form-control', 'is-invalid' => $errors->has('name')]) value="{{ old('name') }}" />
+                    <div id="nameHelp" class="form-text">Nama tidak akan ditampilkan di publik.</div>
+                    @error('name')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" aria-describedby="emailHelp"
+                      @class(['form-control', 'is-invalid' => $errors->has('email')]) value="{{ old('email') }}" />
+                    <div id="emailHelp" class="form-text">Email tidak akan ditampilkan di publik.</div>
+                    @error('email')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+                  <div class="mb-3">
+                    <label for="job_type" class="form-label">Pekerjaan</label>
+                    <select aria-label="Pekerjaan" id="job_type" name="job_type" aria-describedby="jobTypeHelp"
+                      @class([
+                          'form-select',
+                          'form-control',
+                          'is-invalid' => $errors->has('job_type'),
+                      ])>
+                      <option value="" disabled @selected(!old('job_type'))>Pilih salah satu</option>
+                      <option value="Mahasiswa" @selected(old('job_type' == 'Mahasiswa'))>Mahasiswa</option>
+                      <option value="ASN" @selected(old('job_type' == 'ASN'))>ASN</option>
+                      <option value="Swasta" @selected(old('job_type' == 'Swasta'))>Swasta</option>
+                      <option value="TNI/Polri" @selected(old('job_type' == 'TNI/Polri'))>TNI/Polri</option>
+                      <option value="Masyarakat Umum" @selected(old('job_type' == 'Masyarakat Umum'))>Masyarakat Umum</option>
+                    </select>
+                    <div id="jobTypeHelp" class="form-text">Pekerjaan tidak akan ditampilkan di publik.</div>
+                    @error('job_type')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+                  <div class="mb-3">
+                    <label for="tag" class="form-label">Tag</label>
+                    <select aria-label="Tag" id="tag" name="tag" aria-describedby="tagHelp"
+                      @class([
+                          'form-select',
+                          'form-control',
+                          'is-invalid' => $errors->has('tag'),
+                      ])>
+                      <option value="" disabled @selected(!old('tag'))>Pilih salah satu</option>
+                      <option value="infografis" @selected(old('tag' == 'infografis'))>Infografis</option>
+                      <option value="policy brief" @selected(old('tag' == 'policy brief'))>Policy Brief</option>
+                      <option value="video" @selected(old('tag' == 'video'))>Video</option>
+                      <option value="artikel" @selected(old('tag' == 'artikel'))>Artikel</option>
+                      <option value="dokumen" @selected(old('tag' == 'dokumen'))>Dokumen</option>
+                      <option value="galeri" @selected(old('tag' == 'galeri'))>Galeri</option>
+                    </select>
+                    <div id="tagHelp" class="form-text">Tag membantu untuk mempermudah pencarian</div>
+                    @error('tag')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+                  <div class="mb-3">
+                    <label for="feedback" class="form-label">Feedback</label>
+                    <textarea id="feedback" name="feedback" rows="4" placeholder="Pertanyaan, kritik, saran dan lain sebagainya."
+                      @class(['form-control', 'is-invalid' => $errors->has('feedback')])>{{ old('feedback') }}</textarea>
+                    @error('feedback')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+                  <div class="mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <x-rating id="rating-feedback" name="rating" />
+                    @error('rating')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+                  <button type="submit" class="button">
+                    Kirim Feedback
+                    <i class="ml-1 fas fa-paper-plane"></i>
+                  </button>
+                </form>
               </div>
             </div>
           </div>
@@ -103,38 +289,38 @@
               <div class="entry-content">
                 <div class="section-wrapper af-widget-body">
                   <div class="af-container-row clearfix" style="margin-bottom: 20px">
-                    <div class="col-1 pad float-l trending-posts-item">
-                      <div class="discussion">
-                        <div class="discussion__header">
-                          <h2 class="discussion__title">
-                            <a href="#">
-                              Bagaimana cara menambahkan indikator baru?
-                            </a>
-                          </h2>
-                          <p class="discussion__date">12 Agustus 2021</p>
-                        </div>
+                    @foreach ($feedbacks as $feedback)
+                      <div class="col-1 pad float-l trending-posts-item">
+                        <div class="discussion">
+                          <div class="discussion__header">
+                            <h2 class="discussion__title">
+                              <a href="#">
+                                {{ $feedback->feedback }}
+                              </a>
+                            </h2>
+                            <p class="discussion__date">{{ $feedback->created_at->format('d F Y') }}</p>
+                          </div>
 
-                        <div class="discussion__body">
-                          <p>Bagaimana caranya agar saya bisa menambahkan indikator baru di aplikasi ini?</p>
+                          <div class="discussion__body">
+                            <p @class([
+                                'text-muted' => $feedback->admin_reply == null,
+                            ])>{{ $feedback->feedback ?? 'Belum ada balasan' }}</p>
+                          </div>
+
+                          <div class="discussion__footer">
+                            <span @class([
+                                'discussion__tag',
+                                'infografis' => $feedback->tag == 'infografis',
+                                'policy-brief' => $feedback->tag == 'policy brief',
+                                'video' => $feedback->tag == 'video',
+                                'artikel' => $feedback->tag == 'artikel',
+                                'dokumen' => $feedback->tag == 'dokumen',
+                                'galeri' => $feedback->tag == 'galeri',
+                            ])>{{ $feedback->tag }}</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-1 pad float-l trending-posts-item">
-                      <div class="discussion">
-                        <div class="discussion__header">
-                          <h2 class="discussion__title">
-                            <a href="#">
-                              Bagaimana cara melihat data indikator?
-                            </a>
-                          </h2>
-                          <p class="discussion__date">12 Agustus 2021</p>
-                        </div>
-
-                        <div class="discussion__body">
-                          <p>Bagaimana caranya agar saya bisa melihat data indikator di aplikasi ini?</p>
-                        </div>
-                      </div>
-                    </div>
+                    @endforeach
                   </div>
                 </div>
               </div>

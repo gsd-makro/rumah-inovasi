@@ -200,7 +200,7 @@ class MenuController extends Controller
     }
   }
 
-  public function DinamicView($any, Request $request)
+  public function dinamicView($any, Request $request)
   {
     $slugs = explode('/', $any);
 
@@ -321,9 +321,10 @@ class MenuController extends Controller
 
     if ($currentMenu->content_type === 'khusus' && $currentMenu->slug === 'hubungi-kami') {
       $view = 'landing.contact';
-      $feedback = Feedback::where('is_approved', true)->get();
+      $feedbacks = Feedback::where('is_approved', true)->get();
       return view($view, [
         'currentMenu' => $currentMenu,
+        'feedbacks' => $feedbacks,
       ]);
     }
 
