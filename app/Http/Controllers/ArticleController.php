@@ -30,7 +30,7 @@ class ArticleController extends Controller
             $validated = $request->validate([
                 'title' => 'required|string',
                 'content' => 'required|string',
-                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'filepond' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'subject_id' => 'required|integer',
             ]);
 
@@ -38,15 +38,23 @@ class ArticleController extends Controller
             $validated['status'] = 'pending';
             $validated['user_id'] = Auth::user()->id;
 
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
+            if ($request->hasFile('filepond')) {
+                $image = $request->file('filepond');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $path = $image->storeAs('articles', $imageName, 'public');
 
                 $validated['image'] = $path;
             }
 
-            $article = Article::create($validated);
+            Article::create([
+                'title' => $validated['title'],
+                'content' => $validated['content'],
+                'slug' => $validated['slug'],
+                'status' => $validated['status'],
+                'user_id' => $validated['user_id'],
+                'subject_id' => $validated['subject_id'],
+                'image' => $validated['image']
+            ]);
 
             return redirect()->route('articles.index')->with('success', 'Artikel berhasil dibuat');
         } catch (Exception $e) {
@@ -81,6 +89,7 @@ class ArticleController extends Controller
                 'title' => 'required|string',
                 'content' => 'required|string',
                 'subject_id' => 'required|integer',
+                'filepond' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
             ]);
 
             $article = Article::find($id);
@@ -89,18 +98,24 @@ class ArticleController extends Controller
             $validated['status'] = 'pending';
             $validated['user_id'] = Auth::user()->id;
 
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('filepond')) {
                 if ($article->image) {
                     Storage::disk('public')->delete($article->image);
                 }
-                $image = $request->file('image');
+                $image = $request->file('filepond');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $path = $image->storeAs('articles', $imageName, 'public');
 
-                $validated['image'] = $path;
+                $article->image = $path;
             }
 
-            $article->update($validated);
+            $article->title = $validated['title'];
+            $article->content = $validated['content'];
+            $article->slug = $validated['slug'];
+            $article->user_id = $validated['user_id'];
+            $article->subject_id = $validated['subject_id'];
+            $article->save();
+
 
             return redirect()->route('articles.index')->with('success', 'Artikel berhasil diupdate');
         } catch (Exception $e) {
