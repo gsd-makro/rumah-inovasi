@@ -224,7 +224,6 @@ class MenuController extends Controller
       $parentId = $menu->id;
     }
 
-    // Setelah mendapatkan menu yang benar, proses konten
     $subjects = Subject::with('indicators')->get();
     $indicatorId = $request->get('indicator_id');
     $search = $request->get('search');
@@ -289,7 +288,14 @@ class MenuController extends Controller
     }
 
     if ($currentMenu->content_type === 'video') {
-      $videos = Video::where('menu_id', $currentMenu->id)->where('status', 'approved')->get();
+      $query = Video::where('menu_id', $currentMenu->id)->where('status', 'approved');
+
+      if ($search) {
+        $query->where('title', 'like', '%' . $search . '%');
+      }
+
+      $videos = $query->get();
+
       foreach ($videos as $video) {
         if ($video->link_path) {
           $embed = OEmbed::get($video->link_path);
@@ -311,7 +317,14 @@ class MenuController extends Controller
     }
 
     if ($currentMenu->content_type === 'photo') {
-      $photos = Photo::where('menu_id', $currentMenu->id)->where('status', 'approved')->get();
+      $query = Photo::where('menu_id', $currentMenu->id)->where('status', 'approved');
+
+      if ($search) {
+        $query->where('title', 'like', '%' . $search . '%');
+      }
+
+      $photos = $query->get();
+
       $view = 'landing.fotos';
       return view($view, [
         'currentMenu' => $currentMenu,
