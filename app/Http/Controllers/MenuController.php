@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Document;
 use App\Models\Feedback;
 use App\Models\Indicator;
@@ -324,6 +325,30 @@ class MenuController extends Controller
       return view($view, [
         'currentMenu' => $currentMenu,
         'feedbacks' => $feedbacks,
+      ]);
+    }
+
+    if ($currentMenu->content_type === 'khusus' && $currentMenu->slug === 'berita') {
+      $articleId = $request->get('id');
+      if ($articleId) {
+        $view = 'landing.read_news';
+        $article = Article::find($articleId);
+        return view($view, [
+          'currentMenu' => $currentMenu,
+          'news' => $article,
+        ]);
+      }
+
+      $view = 'landing.news';
+      $subjectsWithArticles = Subject::with('articles')->get()->map(function ($subject) {
+        $subject->articles = $subject->articles->filter(fn($article) => $article->status === 'approved');
+        return $subject;
+      });
+      $breaking = Article::where('status', 'approved')->orderByDesc('created_at')->limit(5)->get();
+      return view($view, [
+        'currentMenu' => $currentMenu,
+        'subjects' => $subjectsWithArticles,
+        'breaking' => $breaking
       ]);
     }
 
