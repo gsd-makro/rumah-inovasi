@@ -42,9 +42,10 @@
 @push('scripts')
     <script>
         function openEditModal(value) {
+            console.log(value);
+
             // Set the values in the modal's form fields
             document.getElementById('editTitle').value = value.title; // Set the name field value
-            document.getElementById('editMenu').value = value.menu_id; // Set the name field value
             document.getElementById('link_path').value = value.link_path; // Set the name field value
             document.querySelector('#update form').action = "{{ url('dashboard/videos') }}/" + value.id;
         }

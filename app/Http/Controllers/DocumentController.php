@@ -14,7 +14,7 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        $documents = Document::whereDoesntHave('indicators');
+        $documents = Document::whereDoesntHave('indicators')->orderBy('created_at', 'desc');
         if (Auth::user()->role !== 'superadmin') {
             $documents->where('user_id', Auth::user()->id);
         }
