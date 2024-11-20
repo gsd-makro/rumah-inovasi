@@ -22,7 +22,7 @@ class Navbar extends Component
 			return Menu::where('parent_id', null)
 				->where('is_active', true)
 				->with(['children' => function ($query) {
-					$query->where('is_active', true);
+					$query->where('is_active', true)->orderBy('order');
 				}])
 				->orderBy('order')
 				->get();

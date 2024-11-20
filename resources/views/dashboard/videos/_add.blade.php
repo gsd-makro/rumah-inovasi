@@ -21,15 +21,6 @@
                         <input type="text" name="link_path" class="form-control" id="file_path"
                             placeholder="Masukkan Link Embed Video">
                     </div>
-                    <div class="form-group">
-                        <label for="basicInput">Menu</label>
-                        <select name="menu_id" id="menu_id" class="form-control">
-                            <option value="#" selected disabled>Pilih Menu</option>
-                            @foreach ($menus as $menu)
-                                <option value="{{ $menu->id }}">{{ $menu->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
                     <div class="divider"></div>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn" data-bs-dismiss="modal">
