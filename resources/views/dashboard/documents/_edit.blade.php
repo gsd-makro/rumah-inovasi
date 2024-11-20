@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label for="basicInput">Berkas</label>
                         <input type="file" name="file_path" class="form-control" id="file_path"
-                            placeholder="Masukkan File Dokumen">
+                            placeholder="Masukkan File Dokumen" accept=".pdf">
                     </div>
                     <div class="form-group">
                         <label for="basicInput">Menu</label>

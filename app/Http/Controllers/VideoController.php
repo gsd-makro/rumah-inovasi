@@ -54,13 +54,12 @@ class VideoController extends Controller
     {
         try {
             $validated = $request->validate([
-                'menu_id' => 'required',
                 'title' => 'required|string',
                 'link_path' => 'required|string',
             ]);
 
             $validated['user_id'] = Auth::user()->id;
-
+            $validated['menu_id'] = 18;
             Video::create($validated);
             return redirect()->route('videos.index')->with('success', 'Video berhasil dibuat');
         } catch (Exception $e) {
@@ -93,12 +92,12 @@ class VideoController extends Controller
     {
         try {
             $validated = $request->validate([
-                'menu_id' => 'required',
                 'title' => 'required|string',
                 'link_path' => 'required|string',
             ]);
 
             $validated['user_id'] = Auth::user()->id;
+            $validated['menu_id'] = 18;
             $video = Video::find($id);
             $video->update($validated);
             return redirect()->route('videos.index')->with('success', 'Video berhasil diperbarui');
