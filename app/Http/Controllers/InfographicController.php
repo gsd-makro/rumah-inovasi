@@ -16,7 +16,7 @@ class InfographicController extends Controller
      */
     public function index()
     {
-        $infographics = Auth::user()->role === 'superadmin' ? Infographic::all() : Infographic::where('user_id', Auth::user()->id)->get();
+        $infographics = Auth::user()->role === 'superadmin' ? Infographic::orderBy('created_at', 'desc')->get() : Infographic::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
         return view('dashboard.infographics.index', [
             'infographics' => $infographics,
         ]);

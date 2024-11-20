@@ -13,7 +13,7 @@ class PhotoController extends Controller
 {
     public function index()
     {
-        $photos = Auth::user()->role === 'superadmin' ? Photo::all() : Photo::where('user_id', Auth::user()->id)->get();
+        $photos = Auth::user()->role === 'superadmin' ? Photo::orderBy('created_at', 'desc')->get() : Photo::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
         return view('dashboard.photos.index', [
             'photos' => $photos,
         ]);

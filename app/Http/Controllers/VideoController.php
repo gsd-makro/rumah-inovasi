@@ -14,7 +14,7 @@ class VideoController extends Controller
 {
     public function index()
     {
-        $videos = Auth::user()->role === 'superadmin' ? Video::all() : Video::where('user_id', Auth::user()->id)->get();
+        $videos = Auth::user()->role === 'superadmin' ? Video::orderBy('created_at', 'desc')->get() : Video::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
         $menus = Menu::WhereDoesntHave('children')->where('is_active', true)->get();
 
         // Proses setiap video untuk mendapatkan embed HTML

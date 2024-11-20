@@ -17,7 +17,7 @@ class PolicyBriefController extends Controller
             if (Auth::user()->role !== 'superadmin') {
                 $query->where('user_id', Auth::user()->id);
             }
-        })->get();
+        })->orderBy('created_at', 'desc')->get();
 
         return view('dashboard.policy_briefs.index', [
             'policy_briefs' => $policy_briefs,
@@ -30,7 +30,7 @@ class PolicyBriefController extends Controller
      */
     public function create()
     {
-        $indicators = Indicator::all();
+        $indicators = Indicator::with('subject')->get();
         return view('dashboard.policy_briefs._add', [
             'indicators' => $indicators,
         ]);
@@ -91,7 +91,7 @@ class PolicyBriefController extends Controller
     public function edit(string $id)
     {
         $policy_brief = Document::findOrFail($id);
-        $indicators = Indicator::all();
+        $indicators = Indicator::with('subject')->get();
         return view('dashboard.policy_briefs._edit', [
             'policy_brief' => $policy_brief,
             'indicators' => $indicators,
