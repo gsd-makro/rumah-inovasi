@@ -14,95 +14,84 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PolicyBriefController;
 use App\Http\Controllers\VideoController;
 use App\Http\Middleware\SuperAdminMiddleware;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-  // $breaking = [
-  //   (object) [
-  //     'title' => 'UI Moratorium Penerimaan Mahasiswa Baru S3 SKSG Imbas Kasus Bahlil',
-  //     'thumbnail' => 'https://akcdn.detik.net.id/visual/2024/08/20/bahlil-lahadalia-hadiri-pembukaan-munas-xi-partai-golkar-1_169.jpeg?w=360&q=90',
-  //     'url' => 'https://www.cnnindonesia.com/nasional/20241114062618-20-1166380/ui-moratorium-penerimaan-mahasiswa-baru-s3-sksg-imbas-kasus-bahlil'
-  //   ],
-  // ];
+  // Define cache keys for different sections
+  $breakingCacheKey = 'breaking_news_v1';
+  $carouselCacheKey = 'carousel_news_v1';
+  $popularCacheKey = 'popular_news_v1';
+  $nationalCacheKey = 'national_news_v1';
+  $internationalCacheKey = 'international_news_v1';
 
-  // $carousel = [
-  //   (object) [
-  //     'title' => 'Pria di Cengkareng Berkebun Ganja di Loteng Rumah, Ada 40 Batang Pohon',
-  //     'thumbnail' => 'https://akcdn.detik.net.id/visual/2022/06/08/kebun-ganja-milik-pemerintah-thailand-1_169.jpeg?w=360&q=90',
-  //     'url' => 'https://www.cnnindonesia.com/nasional/20241114033418-12-1166367/pria-di-cengkareng-berkebun-ganja-di-loteng-rumah-ada-40-batang-pohon',
-  //     'author' => 'admin',
-  //     'date' => '13 November 2024',
-  //     'categories' => [
-  //       (object) [
-  //         'url' => 'https://www.cnnindonesia.com/nasional/',
-  //         'name' => 'Nasional',
-  //       ],
-  //     ]
-  //   ],
-  // ];
+  // Cache duration (in minutes)
+  $cacheDuration = 120; // Cache for 15 minutes
 
-  // $popular = [
-  //   (object) [
-  //     'title' => 'Tukang Sate Bunuh Remaja di Maros karena Kesal Ditagih Utang',
-  //     'thumbnail' => 'https://akcdn.detik.net.id/visual/2018/08/29/5f396afc-c6fc-470e-85f4-6629311adb5d_169.jpeg?w=360&q=90',
-  //     'url' => 'https://www.cnnindonesia.com/nasional/20241113135054-12-1166151/tukang-sate-bunuh-remaja-di-maros-karena-kesal-ditagih-utang',
-  //     'date' => '13 November 2024',
-  //   ],
-  // ];
-  $breaking = array_map(function ($item) {
-    return (object) [
-      'title' => $item['title'],
-      'thumbnail' => $item['image'],
-      'url' => $item['link'],
-    ];
-  }, array_slice(Http::get('https://berita-indo-api-next.vercel.app/api/antara-news/terkini')->json()['data'], 0, 5));
+  // Breaking News
+  $breaking = Cache::remember($breakingCacheKey, now()->addMinutes($cacheDuration), function () {
+    return array_map(function ($item) {
+      return (object) [
+        'title' => $item['title'],
+        'thumbnail' => $item['image'],
+        'url' => $item['link'],
+      ];
+    }, array_slice(Http::get('https://berita-indo-api-next.vercel.app/api/antara-news/terkini')->json()['data'], 0, 5));
+  });
 
-  $carousel = array_map(function ($item) {
-    return (object) [
-      'title' => $item['title'],
-      'thumbnail' => $item['image'],
-      'url' => $item['link'],
-      'author' => 'admin',
-      'date' => \Carbon\Carbon::parse($item['isoDate'])->format('d F Y'),
-      'categories' => [
-        (object) [
-          'url' => 'https://www.cnnindonesia.com/nasional/',
-          'name' => 'Top News',
+  // Carousel News
+  $carousel = Cache::remember($carouselCacheKey, now()->addMinutes($cacheDuration), function () {
+    return array_map(function ($item) {
+      return (object) [
+        'title' => $item['title'],
+        'thumbnail' => $item['image'],
+        'url' => $item['link'],
+        'author' => 'admin',
+        'date' => \Carbon\Carbon::parse($item['isoDate'])->format('d F Y'),
+        'categories' => [
+          (object) [
+            'url' => 'https://www.cnnindonesia.com/nasional/',
+            'name' => 'Top News',
+          ],
         ],
-      ],
-    ];
-  }, array_slice(Http::get('https://berita-indo-api-next.vercel.app/api/antara-news/top-news')->json()['data'], 0, 5));
+      ];
+    }, array_slice(Http::get('https://berita-indo-api-next.vercel.app/api/antara-news/top-news')->json()['data'], 0, 5));
+  });
 
+  // Popular News (using carousel data)
   $popular = $carousel;
 
-  $national = array_map(function ($item) {
-    return (object) [
-      'title' => $item['title'],
-      'thumbnail' => $item['image']['small'],
-      'url' => $item['link'],
-      'author' => isset($item['author']) ? $item['author'] : 'admin',
-      'date' => \Carbon\Carbon::parse($item['isoDate'])->format('d F Y'),
-      'categories' => [
-        (object) [
-          'url' => 'https://www.cnnindonesia.com/category/nasional/',
-          'name' => 'Nasional',
+  // National News
+  $national = Cache::remember($nationalCacheKey, now()->addMinutes($cacheDuration), function () {
+    return array_map(function ($item) {
+      return (object) [
+        'title' => $item['title'],
+        'thumbnail' => $item['image']['small'],
+        'url' => $item['link'],
+        'author' => $item['author'] ?? 'admin',
+        'date' => \Carbon\Carbon::parse($item['isoDate'])->format('d F Y'),
+        'categories' => [
+          (object) [
+            'url' => 'https://www.cnnindonesia.com/category/nasional/',
+            'name' => 'Nasional',
+          ],
         ],
-      ],
-    ];
-  }, array_slice(Http::get('https://berita-indo-api-next.vercel.app/api/cnn-news/nasional')->json()['data'], 0, 10));
+      ];
+    }, array_slice(Http::get('https://berita-indo-api-next.vercel.app/api/cnn-news/nasional')->json()['data'], 0, 10));
+  });
 
-  $international = array_map(
-    function ($item) {
+  // International News
+  $international = Cache::remember($internationalCacheKey, now()->addMinutes($cacheDuration), function () {
+    return array_map(function ($item) {
       return (object) [
         'title' => $item['title'],
         'thumbnail' => $item['image']['small'],
         'url' => $item['link'],
         'date' => \Carbon\Carbon::parse($item['isoDate'])->format('d F Y'),
       ];
-    },
-    array_slice(Http::get('https://berita-indo-api-next.vercel.app/api/cnn-news/internasional')->json()['data'], 0, 9)
-  );
+    }, array_slice(Http::get('https://berita-indo-api-next.vercel.app/api/cnn-news/internasional')->json()['data'], 0, 9));
+  });
 
   return view('landing.home', compact('breaking', 'carousel', 'popular', 'national', 'international'));
 })->name('landing.home');
