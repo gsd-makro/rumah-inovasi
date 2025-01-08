@@ -38,7 +38,9 @@
 @push('scripts')
     <script>
         function openVerifyModal(value) {
-            document.querySelector('#verify form').action = `/dashboard/infographics/${value.id}/verify`;
+            const baseUrl = "{{ url('dashboard/infographics') }}";
+            const verifyUrl = `${baseUrl}/${value.id}/verify`;
+            document.querySelector('#verify form').action = verifyUrl;
         }
     </script>
 @endpush

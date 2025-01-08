@@ -38,7 +38,12 @@
 @push('scripts')
     <script>
         function openVerifyModal(value) {
-            document.querySelector('#verify form').action = `/dashboard/articles/${value.id}/verify`;
+            // Buat URL secara manual
+            const baseUrl = "{{ url('dashboard/articles') }}";
+            const verifyUrl = `${baseUrl}/${value.id}/verify`;
+
+            // Set action form
+            document.querySelector('#verify form').action = verifyUrl;
         }
     </script>
 @endpush

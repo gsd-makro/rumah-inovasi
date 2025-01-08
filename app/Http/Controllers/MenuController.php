@@ -365,6 +365,13 @@ class MenuController extends Controller
       ]);
     }
 
+    if ($currentMenu->content_type === 'khusus' && $currentMenu->slug === 'tentang-rinov-go') {
+      $view = 'landing.about';
+      return view($view, [
+        'currentMenu' => $currentMenu,
+      ]);
+    }
+
     abort(404);
   }
 }

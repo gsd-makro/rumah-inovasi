@@ -14,12 +14,33 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PolicyBriefController;
 use App\Http\Controllers\VideoController;
 use App\Http\Middleware\SuperAdminMiddleware;
+use App\Models\Article;
+use App\Models\Subject;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
   // Define cache keys for different sections
+  $articleId = $request->get('id');
+  if ($articleId) {
+    $view = 'landing.read_news';
+    $article = Article::find($articleId);
+    return view($view, [
+      'news' => $article,
+    ]);
+  }
+  $view = 'landing.news';
+  $subjectsWithArticles = Subject::with('articles')->get()->map(function ($subject) {
+    $subject->articles = $subject->articles->filter(fn($article) => $article->status === 'approved');
+    return $subject;
+  });
+  $breaking = Article::where('status', 'approved')->orderByDesc('created_at')->limit(5)->get();
+  return view($view, [
+    'subjects' => $subjectsWithArticles,
+    'breaking' => $breaking
+  ]);
   $breakingCacheKey = 'breaking_news_v1';
   $carouselCacheKey = 'carousel_news_v1';
   $popularCacheKey = 'popular_news_v1';

@@ -33,9 +33,11 @@
 @push('scripts')
     <script>
         function openDeleteModal(value) {
+            const baseUrl = "{{ url('dashboard/indicators') }}";
+            const deleteUrl = `${baseUrl}/${value.id}`;
             console.log(value);
             document.getElementById('editName').value = value.name;
-            document.querySelector('#delete form').action = "/dashboard/indicators/" + value.id;
+            document.querySelector('#delete form').action = deleteUrl;
         }
     </script>
 @endpush
