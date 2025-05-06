@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 use App\Models\User;
 use App\Models\Subject;
+use Illuminate\Support\Str;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,7 +35,7 @@ class ArticleController extends Controller
                 'subject_id' => 'required|integer',
             ]);
 
-            $validated['slug'] = str_replace(' ', '-', strtolower($request->title));
+            $validated['slug'] = Str::slug($$validated['title']);
             $validated['status'] = 'pending';
             $validated['user_id'] = Auth::user()->id;
 

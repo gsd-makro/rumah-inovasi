@@ -59,7 +59,7 @@
               <div class="banner-promotions-wrapper">
                 <div class="promotion-section">
                   <a href="" target="_blank">
-                    <img width="1280" height="426" src="{{ asset('/static/images/banner.jpg') }}"
+                    <img width="1280" height="426" src="{{ asset('/static/images/banner-new.png') }}"
                       class="attachment-full size-full" alt="" />
                   </a>
                 </div>
