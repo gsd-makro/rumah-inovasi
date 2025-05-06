@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0 card-title">Daftar Feedback</h4>
+                    <h4 class="mb-0 card-title">Daftar Semua Feedback</h4>
                     <!-- Form untuk Tandai Sudah Baca -->
                     <form action="{{ route('feedbacks.markRead') }}" method="POST" id="markReadForm">
                         @csrf
