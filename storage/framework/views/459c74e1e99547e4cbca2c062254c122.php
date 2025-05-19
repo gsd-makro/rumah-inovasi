@@ -1,0 +1,141 @@
+<?php $__env->startSection('title', 'Manajemen Feedback'); ?>
+<?php $__env->startSection('subtitle', 'Halaman untuk mengelola dan mengatur feedback video dalam sistem.'); ?>
+
+<?php $__env->startSection('main'); ?>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0 card-title">Daftar Semua Feedback</h4>
+                    <!-- Form untuk Tandai Sudah Baca -->
+                    <form action="<?php echo e(route('feedbacks.markRead')); ?>" method="POST" id="markReadForm">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
+                        <button type="submit" class="btn btn-primary block" id="markReadButton" disabled>
+                            Tandai Sudah Baca <i class="bi bi-check-circle"></i>
+                        </button>
+                    </form>
+                    <?php echo $__env->make('dashboard.feedbacks._verify', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    <?php echo $__env->make('dashboard.feedbacks._reply', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                    <?php echo $__env->make('dashboard.feedbacks._delete', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th width="5%"></th>
+                            <th width="5%">No</th>
+                            <th width="50%">Pesan</th>
+                            <th width="10%">Tag</th>
+                            <th width="10%">Status</th>
+                            <th width="20%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $__currentLoopData = $feedbacks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $feedback): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr>
+                                <!-- Checkbox untuk memilih feedback -->
+                                <td><input type="checkbox" class="feedback-checkbox" value="<?php echo e($feedback->id); ?>"
+                                        name="feedback_ids[]"></td>
+                                <td class="text-bold-500"><?php echo e($key + 1); ?></td>
+                                <td class="text-bold-500">
+                                    <div class="d-flex flex-column <?php echo e(!$feedback->is_read ? 'fw-bold' : ''); ?>">
+                                        <p>Dari: <?php echo e($feedback->name); ?></p>
+                                        <p><?php echo e(Str::limit($feedback->feedback, 90, '...')); ?></p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary"><?php echo e($feedback->tag); ?></span>
+                                </td>
+                                <td class="text-bold-500">
+                                    <?php if($feedback->is_approved): ?>
+                                        <span class="badge bg-success">Disetujui</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-danger">Ditolak</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#verify" onclick="openVerifyModal(<?php echo e($feedback); ?>)"><i
+                                            class="bi bi-file-check"></i></button>
+                                    <button class="btn btn-warning" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#reply" onclick="openReplyModal(<?php echo e($feedback); ?>)">
+                                        <i class="bi bi-send"></i>
+                                    </button>
+                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#delete" onclick="openDeleteModal(<?php echo e($feedback); ?>)"><i
+                                            class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('scripts'); ?>
+    <script>
+        // Script untuk menangani pemilihan checkbox dan pengaktifan tombol "Tandai Sudah Baca"
+        document.querySelectorAll('.feedback-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const selectedCheckboxes = document.querySelectorAll('.feedback-checkbox:checked');
+                const markReadButton = document.getElementById('markReadButton');
+
+                // Aktifkan tombol jika ada feedback yang dipilih
+                if (selectedCheckboxes.length > 0) {
+                    markReadButton.disabled = false;
+                } else {
+                    markReadButton.disabled = true;
+                }
+            });
+        });
+
+        // Menyusun dan mengirimkan form saat tombol "Tandai Sudah Baca" diklik
+        document.getElementById('markReadForm').addEventListener('submit', function(e) {
+            const selectedFeedbackIds = Array.from(document.querySelectorAll('.feedback-checkbox:checked')).map(
+                checkbox => checkbox.value);
+
+            if (selectedFeedbackIds.length > 0) {
+                // Menambahkan ID feedback yang dipilih ke dalam form yang akan dikirim
+                selectedFeedbackIds.forEach(id => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'feedback_ids[]';
+                    input.value = id;
+                    this.appendChild(input);
+                });
+            } else {
+                e.preventDefault(); // Cegah pengiriman form jika tidak ada feedback yang dipilih
+            }
+        });
+    </script>
+    <script>
+        new DataTable('#table1');
+    </script>
+    <?php if(session('success')): ?>
+        <script>
+            Swal.fire({
+                title: "Success!",
+                text: "<?php echo e(session('success')); ?>",
+                icon: "success",
+                timer: 2000
+            });
+        </script>
+    <?php endif; ?>
+
+    <?php if(session('error')): ?>
+        <script>
+            Swal.fire({
+                title: "Error!",
+                text: "<?php echo e(session('error')); ?>",
+                icon: "error",
+                timer: 2000
+            });
+        </script>
+    <?php endif; ?>
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.dashboard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/adi/Documents/project/rumah-inovasi/resources/views/dashboard/feedbacks/index.blade.php ENDPATH**/ ?>
